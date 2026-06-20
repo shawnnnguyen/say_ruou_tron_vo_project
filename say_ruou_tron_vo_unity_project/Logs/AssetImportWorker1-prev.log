@@ -15,7 +15,7 @@ C:/Uni/Unity_Project/say_ruou_tron_vo_project/say_ruou_tron_vo_unity_project
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-64547
+63882
 -job-worker-count
 5
 -background-job-worker-count
@@ -59,14 +59,14 @@ C:/Uni/Unity_Project/say_ruou_tron_vo_project/say_ruou_tron_vo_unity_project
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [23220]  Target information:
+Player connection [17216]  Target information:
 
-Player connection [23220]  * "[IP] 192.168.178.34 [Port] 0 [Flags] 2 [Guid] 975255679 [EditorId] 975255679 [Version] 1048832 [Id] WindowsEditor(7,MysPC) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [17216]  * "[IP] 192.168.178.34 [Port] 0 [Flags] 2 [Guid] 2229714771 [EditorId] 2229714771 [Version] 1048832 [Id] WindowsEditor(7,MysPC) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [23220]  * "[IP] 172.17.48.1 [Port] 0 [Flags] 2 [Guid] 975255679 [EditorId] 975255679 [Version] 1048832 [Id] WindowsEditor(7,MysPC) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [17216]  * "[IP] 172.25.32.1 [Port] 0 [Flags] 2 [Guid] 2229714771 [EditorId] 2229714771 [Version] 1048832 [Id] WindowsEditor(7,MysPC) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [23220] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [23220] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [17216] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [17216] Host joined alternative multi-casting on [225.0.0.222:34997]...
 JobSystem: Creating JobQueue using job-worker-count value 5
 Input System module state changed to: Initialized.
 [Physics::Module] Initialized fallback backend.
@@ -78,7 +78,7 @@ Library Redirect Path: Library/
 [Physics::Module] SDK Version: 4.1.2
 [Physics::Module] Integration Version: 1.0.0
 [Physics::Module] Threading Mode: Multi-Threaded
-Refreshing native plugins compatible for Editor in 2.25 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 5.36 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 6000.0.41f1 (46e447368a18)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.0.41f1-x86_64/Editor/Data/Resources/UnitySubsystems
@@ -94,43 +94,43 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.0.41f1-x86_64/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.0.41f1-x86_64/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.0.41f1-x86_64/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56672
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56820
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.0.41f1-x86_64/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001774 seconds.
-- Loaded All Assemblies, in  0.263 seconds
+Registered in 0.002590 seconds.
+- Loaded All Assemblies, in  0.312 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.271 seconds
-Domain Reload Profiling: 533ms
-	BeginReloadAssembly (91ms)
+- Finished resetting the current domain, in  0.248 seconds
+Domain Reload Profiling: 558ms
+	BeginReloadAssembly (132ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (27ms)
+	RebuildCommonClasses (29ms)
 	RebuildNativeTypeToScriptingClass (8ms)
-	initialDomainReloadingComplete (33ms)
-	LoadAllAssembliesAndSetupDomain (103ms)
-		LoadAssemblies (89ms)
+	initialDomainReloadingComplete (34ms)
+	LoadAllAssembliesAndSetupDomain (107ms)
+		LoadAssemblies (127ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (101ms)
-			TypeCache.Refresh (100ms)
-				TypeCache.ScanAssembly (92ms)
+		AnalyzeDomain (105ms)
+			TypeCache.Refresh (104ms)
+				TypeCache.ScanAssembly (94ms)
 			BuildScriptInfoCaches (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (271ms)
+	FinalizeReload (248ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (241ms)
+		SetupLoadedEditorAssemblies (216ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (14ms)
+			InitializePlatformSupportModulesInManaged (15ms)
 			SetLoadedEditorAssemblies (3ms)
-			BeforeProcessingInitializeOnLoad (42ms)
-			ProcessInitializeOnLoadAttributes (140ms)
-			ProcessInitializeOnLoadMethodAttributes (43ms)
+			BeforeProcessingInitializeOnLoad (38ms)
+			ProcessInitializeOnLoadAttributes (118ms)
+			ProcessInitializeOnLoadMethodAttributes (42ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -139,123 +139,441 @@ Domain Reload Profiling: 533ms
 Worker process is ready to serve import requests
 Import Worker Mode flag is 0x00
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.509 seconds
-Refreshing native plugins compatible for Editor in 1.80 ms, found 4 plugins.
+- Loaded All Assemblies, in  0.611 seconds
+Refreshing native plugins compatible for Editor in 1.16 ms, found 4 plugins.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.85 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.436 seconds
-Domain Reload Profiling: 943ms
-	BeginReloadAssembly (134ms)
+- Finished resetting the current domain, in  0.420 seconds
+Domain Reload Profiling: 1023ms
+	BeginReloadAssembly (132ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (5ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (25ms)
+		CreateAndSetChildDomain (24ms)
 	RebuildCommonClasses (26ms)
-	RebuildNativeTypeToScriptingClass (10ms)
-	initialDomainReloadingComplete (33ms)
-	LoadAllAssembliesAndSetupDomain (304ms)
-		LoadAssemblies (226ms)
+	RebuildNativeTypeToScriptingClass (9ms)
+	initialDomainReloadingComplete (24ms)
+	LoadAllAssembliesAndSetupDomain (412ms)
+		LoadAssemblies (356ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (158ms)
-			TypeCache.Refresh (127ms)
-				TypeCache.ScanAssembly (118ms)
-			BuildScriptInfoCaches (27ms)
+		AnalyzeDomain (134ms)
+			TypeCache.Refresh (107ms)
+				TypeCache.ScanAssembly (99ms)
+			BuildScriptInfoCaches (22ms)
 			ResolveRequiredComponents (3ms)
-	FinalizeReload (437ms)
+	FinalizeReload (421ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (349ms)
+		SetupLoadedEditorAssemblies (339ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (2ms)
 			SetLoadedEditorAssemblies (3ms)
-			BeforeProcessingInitializeOnLoad (65ms)
-			ProcessInitializeOnLoadAttributes (255ms)
-			ProcessInitializeOnLoadMethodAttributes (21ms)
+			BeforeProcessingInitializeOnLoad (70ms)
+			ProcessInitializeOnLoadAttributes (242ms)
+			ProcessInitializeOnLoadMethodAttributes (19ms)
 			AfterProcessingInitializeOnLoad (3ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (5ms)
+		AwakeInstancesAfterBackupRestoration (6ms)
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
-Refreshing native plugins compatible for Editor in 1.34 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.28 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 8 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 4102 unused Assets / (0.9 MB). Loaded Objects now: 4582.
-Memory consumption went from 85.2 MB to 84.3 MB.
-Total: 5.499000 ms (FindLiveObjects: 0.419600 ms CreateObjectMapping: 0.218600 ms MarkObjects: 4.083600 ms  DeleteObjects: 0.776200 ms)
+Unloading 4103 unused Assets / (0.9 MB). Loaded Objects now: 4583.
+Memory consumption went from 85.3 MB to 84.4 MB.
+Total: 4.536400 ms (FindLiveObjects: 0.351300 ms CreateObjectMapping: 0.252200 ms MarkObjects: 3.239900 ms  DeleteObjects: 0.692500 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 1327.785090 seconds.
-  path: Assets/Materials/alcohol-board-texture/roughpaint.png
-  artifactKey: Guid(effe96333af61d748ba955893c74ff1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Materials/alcohol-board-texture/roughpaint.png using Guid(effe96333af61d748ba955893c74ff1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '92f4fdeb510e3683f569887c7fda9c10') in 0.0518081 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+  Time since last request: 613.476355 seconds.
+  path: Assets/Models/GAME-BANANASKIN.fbx
+  artifactKey: Guid(a34ed4b31bc34f449a0a54996001f2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/GAME-BANANASKIN.fbx using Guid(a34ed4b31bc34f449a0a54996001f2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'ad2aeedc9051a68b33dc907f5e09eb7c') in 0.1511734 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 9
 
 ========================================================================
 Received Prepare
-Refreshing native plugins compatible for Editor in 1.30 ms, found 4 plugins.
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.513 seconds
+Refreshing native plugins compatible for Editor in 1.18 ms, found 4 plugins.
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.415 seconds
+Domain Reload Profiling: 927ms
+	BeginReloadAssembly (154ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (41ms)
+	RebuildCommonClasses (27ms)
+	RebuildNativeTypeToScriptingClass (9ms)
+	initialDomainReloadingComplete (21ms)
+	LoadAllAssembliesAndSetupDomain (301ms)
+		LoadAssemblies (268ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (110ms)
+			TypeCache.Refresh (5ms)
+				TypeCache.ScanAssembly (0ms)
+			BuildScriptInfoCaches (99ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (415ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (323ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (2ms)
+			SetLoadedEditorAssemblies (4ms)
+			BeforeProcessingInitializeOnLoad (73ms)
+			ProcessInitializeOnLoadAttributes (224ms)
+			ProcessInitializeOnLoadMethodAttributes (16ms)
+			AfterProcessingInitializeOnLoad (4ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.32 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 4089 unused Assets / (0.9 MB). Loaded Objects now: 4588.
-Memory consumption went from 83.3 MB to 82.4 MB.
-Total: 5.404200 ms (FindLiveObjects: 0.542200 ms CreateObjectMapping: 0.188200 ms MarkObjects: 3.969200 ms  DeleteObjects: 0.703900 ms)
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 4101 unused Assets / (0.9 MB). Loaded Objects now: 4631.
+Memory consumption went from 89.5 MB to 88.6 MB.
+Total: 5.099200 ms (FindLiveObjects: 0.409000 ms CreateObjectMapping: 0.126900 ms MarkObjects: 3.830000 ms  DeleteObjects: 0.732300 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 ========================================================================
 Received Prepare
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.429 seconds
-Refreshing native plugins compatible for Editor in 1.77 ms, found 4 plugins.
+- Loaded All Assemblies, in  0.424 seconds
+Refreshing native plugins compatible for Editor in 1.35 ms, found 4 plugins.
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.539 seconds
-Domain Reload Profiling: 968ms
-	BeginReloadAssembly (141ms)
+- Finished resetting the current domain, in  0.427 seconds
+Domain Reload Profiling: 851ms
+	BeginReloadAssembly (135ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (5ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (33ms)
-	RebuildCommonClasses (24ms)
+	RebuildCommonClasses (28ms)
 	RebuildNativeTypeToScriptingClass (10ms)
 	initialDomainReloadingComplete (17ms)
-	LoadAllAssembliesAndSetupDomain (237ms)
-		LoadAssemblies (209ms)
+	LoadAllAssembliesAndSetupDomain (233ms)
+		LoadAssemblies (200ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
 		AnalyzeDomain (100ms)
-			TypeCache.Refresh (5ms)
+			TypeCache.Refresh (4ms)
 				TypeCache.ScanAssembly (0ms)
-			BuildScriptInfoCaches (90ms)
+			BuildScriptInfoCaches (91ms)
 			ResolveRequiredComponents (3ms)
-	FinalizeReload (539ms)
+	FinalizeReload (427ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (417ms)
+		SetupLoadedEditorAssemblies (345ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (3ms)
-			SetLoadedEditorAssemblies (4ms)
-			BeforeProcessingInitializeOnLoad (92ms)
-			ProcessInitializeOnLoadAttributes (292ms)
-			ProcessInitializeOnLoadMethodAttributes (21ms)
-			AfterProcessingInitializeOnLoad (3ms)
+			InitializePlatformSupportModulesInManaged (1ms)
+			SetLoadedEditorAssemblies (3ms)
+			BeforeProcessingInitializeOnLoad (62ms)
+			ProcessInitializeOnLoadAttributes (255ms)
+			ProcessInitializeOnLoadMethodAttributes (19ms)
+			AfterProcessingInitializeOnLoad (4ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
-Refreshing native plugins compatible for Editor in 1.30 ms, found 4 plugins.
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.33 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 4101 unused Assets / (0.8 MB). Loaded Objects now: 4590.
-Memory consumption went from 85.1 MB to 84.2 MB.
-Total: 4.193700 ms (FindLiveObjects: 0.342500 ms CreateObjectMapping: 0.112000 ms MarkObjects: 3.033600 ms  DeleteObjects: 0.704900 ms)
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 4101 unused Assets / (0.8 MB). Loaded Objects now: 4632.
+Memory consumption went from 89.5 MB to 88.7 MB.
+Total: 4.832300 ms (FindLiveObjects: 0.557800 ms CreateObjectMapping: 0.194800 ms MarkObjects: 3.456100 ms  DeleteObjects: 0.622800 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 ========================================================================
 Received Import Request.
-  Time since last request: 393.137969 seconds.
-  path: Assets/Materials/board-alcohol-texture/roughpaint.png
-  artifactKey: Guid(46a19d42d85e07b47b05661852cc1422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Materials/board-alcohol-texture/roughpaint.png using Guid(46a19d42d85e07b47b05661852cc1422) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'ff7f79789c1429b2a32b6e03fe7d0b18') in 0.0450599 seconds
+  Time since last request: 1186.406199 seconds.
+  path: Assets/Materials/chibi/texture_metallic.png
+  artifactKey: Guid(39c95232b2fceb04498fe890c57713c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Materials/chibi/texture_metallic.png using Guid(39c95232b2fceb04498fe890c57713c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '5c415bef3c53f0a6ecebbdeba308bd82') in 0.0630441 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.432 seconds
+Refreshing native plugins compatible for Editor in 1.03 ms, found 4 plugins.
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.431 seconds
+Domain Reload Profiling: 864ms
+	BeginReloadAssembly (141ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (4ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (37ms)
+	RebuildCommonClasses (25ms)
+	RebuildNativeTypeToScriptingClass (8ms)
+	initialDomainReloadingComplete (17ms)
+	LoadAllAssembliesAndSetupDomain (241ms)
+		LoadAssemblies (205ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (105ms)
+			TypeCache.Refresh (4ms)
+				TypeCache.ScanAssembly (0ms)
+			BuildScriptInfoCaches (95ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (432ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (339ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (2ms)
+			SetLoadedEditorAssemblies (3ms)
+			BeforeProcessingInitializeOnLoad (66ms)
+			ProcessInitializeOnLoadAttributes (247ms)
+			ProcessInitializeOnLoadMethodAttributes (18ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.43 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 4101 unused Assets / (1.0 MB). Loaded Objects now: 4635.
+Memory consumption went from 89.5 MB to 88.5 MB.
+Total: 4.481200 ms (FindLiveObjects: 0.353000 ms CreateObjectMapping: 0.143600 ms MarkObjects: 3.206400 ms  DeleteObjects: 0.777400 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  0.419 seconds
+Refreshing native plugins compatible for Editor in 1.65 ms, found 4 plugins.
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.420 seconds
+Domain Reload Profiling: 839ms
+	BeginReloadAssembly (135ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (4ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (35ms)
+	RebuildCommonClasses (28ms)
+	RebuildNativeTypeToScriptingClass (8ms)
+	initialDomainReloadingComplete (17ms)
+	LoadAllAssembliesAndSetupDomain (230ms)
+		LoadAssemblies (197ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (99ms)
+			TypeCache.Refresh (4ms)
+				TypeCache.ScanAssembly (0ms)
+			BuildScriptInfoCaches (90ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (420ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (330ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (2ms)
+			SetLoadedEditorAssemblies (3ms)
+			BeforeProcessingInitializeOnLoad (66ms)
+			ProcessInitializeOnLoadAttributes (237ms)
+			ProcessInitializeOnLoadMethodAttributes (19ms)
+			AfterProcessingInitializeOnLoad (4ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
+Refreshing native plugins compatible for Editor in 1.31 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 4101 unused Assets / (0.8 MB). Loaded Objects now: 4636.
+Memory consumption went from 89.5 MB to 88.6 MB.
+Total: 4.377100 ms (FindLiveObjects: 0.394000 ms CreateObjectMapping: 0.170600 ms MarkObjects: 3.199500 ms  DeleteObjects: 0.612400 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Import Request.
+  Time since last request: 414.578950 seconds.
+  path: Assets/Materials/Banana_baked.png
+  artifactKey: Guid(4f043ddd339a60447b19decbbca5bf1b) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/Banana_baked.png using Guid(4f043ddd339a60447b19decbbca5bf1b) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '87805abeb40912d9789386ab27263e78') in 0.0983296 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Materials/road-textures/Concenteric_circle_pavings_Base_Color.jpg
+  artifactKey: Guid(739ce459b23bc98449a09c43745598c1) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/road-textures/Concenteric_circle_pavings_Base_Color.jpg using Guid(739ce459b23bc98449a09c43745598c1) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'f8e82afbe4e4ff71285aed89accd0354') in 0.0157135 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Materials/rac.png
+  artifactKey: Guid(f2ccc3539909bc74e8511f7edc36c4a8) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/rac.png using Guid(f2ccc3539909bc74e8511f7edc36c4a8) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'bcb516d36e2f36e9de2f1ed12ff95785') in 0.0194396 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000056 seconds.
+  path: Assets/Materials/board-alcohol-texture/scratch.png
+  artifactKey: Guid(d863dedd5d05f504b8e6f0bddf4eb2b9) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/board-alcohol-texture/scratch.png using Guid(d863dedd5d05f504b8e6f0bddf4eb2b9) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '35b9c7e8a72b1b87d12191f820f420b7') in 0.0138793 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000068 seconds.
+  path: Assets/Models/GAME-ROAD.fbx
+  artifactKey: Guid(486958472d1361547a654260147e17be) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Models/GAME-ROAD.fbx using Guid(486958472d1361547a654260147e17be) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '48bda51a401df88d7788e2fb388e263a') in 0.0668372 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 25
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Scenes/SampleScene.unity
+  artifactKey: Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Scenes/SampleScene.unity using Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'c34ae8479df44ab8e5eb34f6c4cb1aec') in 0.0118104 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000046 seconds.
+  path: Assets/Materials/chibi/New Material.mat
+  artifactKey: Guid(78de9600296c7c044918849de584f6c6) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/chibi/New Material.mat using Guid(78de9600296c7c044918849de584f6c6) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '38c6755154fb05298248e5f5c432e5ab') in 0.0097247 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000057 seconds.
+  path: Assets/Materials/Materials/Banana_baked.mat
+  artifactKey: Guid(a55c29f7f235ca64787613e4b2d2fc09) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/Materials/Banana_baked.mat using Guid(a55c29f7f235ca64787613e4b2d2fc09) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '4ea4b23107da6c128fe684d33d084ca9') in 0.0114421 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Models/GAME-TRASH-BIN.fbx
+  artifactKey: Guid(27a4c22accf2deb47af92ef134737d50) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Models/GAME-TRASH-BIN.fbx using Guid(27a4c22accf2deb47af92ef134737d50) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'b075e1d077a67f48ab3f44f20b92e282') in 0.0210925 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 10
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Materials/road-textures/gravel_concrete_03_rough_4k.exr
+  artifactKey: Guid(d03a962f59c3d374c805ff316a44a33b) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/road-textures/gravel_concrete_03_rough_4k.exr using Guid(d03a962f59c3d374c805ff316a44a33b) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'bf991a5732bfd69b5c0259281926243b') in 0.0188706 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Materials/road-textures/Concenteric_circle_pavings_Height.jpg
+  artifactKey: Guid(fbc329ce1d2ccfc43b89bbd25fec7a94) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/road-textures/Concenteric_circle_pavings_Height.jpg using Guid(fbc329ce1d2ccfc43b89bbd25fec7a94) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'd9ecfbb2ede46edc1e32e99463d9130f') in 0.0125824 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000050 seconds.
+  path: Assets/Models/base.obj
+  artifactKey: Guid(24217e3870c09cd44813d392721d9ec6) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Models/base.obj using Guid(24217e3870c09cd44813d392721d9ec6) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'de87ec7c6019b78596e6808bf74ca16f') in 0.0167075 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 10
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Materials/board-alcohol-texture/roughpaint.png
+  artifactKey: Guid(46a19d42d85e07b47b05661852cc1422) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/board-alcohol-texture/roughpaint.png using Guid(46a19d42d85e07b47b05661852cc1422) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '72c4d3476978c662f4ded2e3636db158') in 0.0132234 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Materials/road-textures/asphalt_02_nor_dx_4k.jpg
+  artifactKey: Guid(4f1dc91bd4736044190f587e564faf42) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/road-textures/asphalt_02_nor_dx_4k.jpg using Guid(4f1dc91bd4736044190f587e564faf42) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '3d6441ec3d7d1ef585f317cdf0c94f3a') in 0.0171842 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000049 seconds.
+  path: Assets/Materials/road-textures/New Material.mat
+  artifactKey: Guid(c20e94ab4a7fc304a8acdd5b2d906713) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/road-textures/New Material.mat using Guid(c20e94ab4a7fc304a8acdd5b2d906713) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '1dcb3aa5d80c654777c60455994f5777') in 0.0107468 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Materials/road-textures/RoadLines027A.png
+  artifactKey: Guid(acbc2cab888c7d94fbff3c7455fc5298) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/road-textures/RoadLines027A.png using Guid(acbc2cab888c7d94fbff3c7455fc5298) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'be7bc5d631dea0ec5c3979a64e00a903') in 0.0135522 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Materials/board-alcohol-texture/8c6bc306-d37f-47df-ac79-3d0df017502a.jpg
+  artifactKey: Guid(60922b09b52a2de48921eb9dfcdcf2c4) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/board-alcohol-texture/8c6bc306-d37f-47df-ac79-3d0df017502a.jpg using Guid(60922b09b52a2de48921eb9dfcdcf2c4) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '28e3bde2befe516acccb2fcb9474c75a') in 0.0139209 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Materials/road-textures/gravel_concrete_03_nor_gl_4k.exr
+  artifactKey: Guid(95454fa1369f8d745b6d450a82bb8179) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/road-textures/gravel_concrete_03_nor_gl_4k.exr using Guid(95454fa1369f8d745b6d450a82bb8179) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'e247ac353bc066a4b882327f9b8465a4') in 0.0127237 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Scripts/PlayerMovement.cs
+  artifactKey: Guid(c9fc05d3b81ecfd408c455f744da35fd) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Scripts/PlayerMovement.cs using Guid(c9fc05d3b81ecfd408c455f744da35fd) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'e8cfdc0ab742fd9c7f198dbf63d7b4c9') in 0.0084343 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000056 seconds.
+  path: Assets/Materials/chibi/texture_roughness.png
+  artifactKey: Guid(c903589e08e2f1f42842bbefea1d00a2) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/chibi/texture_roughness.png using Guid(c903589e08e2f1f42842bbefea1d00a2) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '43f09ee9fb954166537daf6624f1919d') in 0.0149884 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000091 seconds.
+  path: Assets/Models/GAME-BANANASKIN.fbx
+  artifactKey: Guid(a34ed4b31bc34f449a0a54996001f2d2) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Models/GAME-BANANASKIN.fbx using Guid(a34ed4b31bc34f449a0a54996001f2d2) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'a74431d802a5e03ee0483a3d683437bc') in 0.0157211 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 9
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Materials/road-textures/Concenteric_circle_pavings_Normal.jpg
+  artifactKey: Guid(8b6cc2666f1d7c14b846c30d914180eb) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/road-textures/Concenteric_circle_pavings_Normal.jpg using Guid(8b6cc2666f1d7c14b846c30d914180eb) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: '05609b14fc7da65ce5ac65d04001eb8a') in 0.013796 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Materials/chibi/texture_normal.png
+  artifactKey: Guid(b40ce40c238414e48b549d9fbff6a137) Importer(2089858483,192608db42251d675da83286b1cce702)
+Start importing Assets/Materials/chibi/texture_normal.png using Guid(b40ce40c238414e48b549d9fbff6a137) Importer(2089858483,192608db42251d675da83286b1cce702) (ScriptedImporter) -> (artifact id: 'c9f259fdfa11f9d6d9fd9e9eb83d4197') in 0.0165658 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
 
