@@ -38,14 +38,30 @@ public class RoadSpawner : MonoBehaviour
 
     void SpawnRoad()
     {
-        GameObject newRoad = Instantiate(
+        GameObject road = Instantiate(
             roadPrefab,
             new Vector3(0f, 0f, nextSpawnZ),
             Quaternion.identity
         );
 
-        activeRoads.Enqueue(newRoad);
+        road.SetActive(true);
+        foreach (Transform child in road.GetComponentsInChildren<Transform>(true))
+        {
+            child.gameObject.SetActive(true);
+        }
 
+        RoadObjectsSpawner objectSpawner = road.GetComponent<RoadObjectsSpawner>();
+
+        if (objectSpawner != null)
+        {
+            objectSpawner.SpawnObjects();
+        }
+        else
+        {
+            Debug.LogError("RoadObjectsSpawner missing on spawned road!");
+        }
+
+        activeRoads.Enqueue(road);
         nextSpawnZ += roadLength;
     }
 }
