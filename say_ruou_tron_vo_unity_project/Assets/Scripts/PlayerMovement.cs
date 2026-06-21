@@ -1,11 +1,15 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform model;
     public float forwardSpeed = 8f;
     public float laneDistance = 8f;
     public float laneSwitchSpeed = 10f;
     public float jumpForce = 7f;
+    private bool isRolling = false;
+    private Quaternion modelStartRotation;
 
     private int currentLane = 1; // 0 = left, 1 = center, 2 = right
     private Rigidbody rb;
@@ -14,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        modelStartRotation = model.localRotation;
     }
 
     void Update()
@@ -37,8 +42,21 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
         }
 
+        // Jump
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
+        }
+
+        // Roll / Duck
+        if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isRolling)
+        {
+            StartCoroutine(Roll());
+        }
+
         // Constant forward movement
-        transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+        transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime, Space.World);
 
         // Calculate target lane position
         Vector3 targetPosition = transform.position;
@@ -58,5 +76,18 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = true;
         }
+    }
+
+    private IEnumerator Roll()
+    {
+        isRolling = true;
+
+        model.localRotation = modelStartRotation * Quaternion.Euler(90f, 0f, 0f);
+
+        yield return new WaitForSeconds(1f);
+
+        model.localRotation = modelStartRotation;
+
+        isRolling = false;
     }
 }
