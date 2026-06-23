@@ -8,6 +8,8 @@
 Assets/AssetStoreTools*
 
 .claude/
+.claude.json
+CLAUDE.md
 
 .vs/
 
