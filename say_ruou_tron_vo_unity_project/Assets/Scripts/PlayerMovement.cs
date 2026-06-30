@@ -7,18 +7,32 @@ public class PlayerMovement : MonoBehaviour
     public float forwardSpeed = 8f;
     public float laneDistance = 8f;
     public float laneSwitchSpeed = 10f;
-    public float jumpForce = 7f;
+
+    [Header("Jump setting")]
+    public float jumpHeight = 10f;
+    public float jumpDuration = 0.6f;
+    public float fastFallDuration = 0.15f;
+
+    [Header("Roll setting")]
+    public float rollDuration = 1f;
+
     private bool isRolling = false;
+    private bool isJumping = false;
     private Quaternion modelStartRotation;
 
-    private int currentLane = 1; // 0 = left, 1 = center, 2 = right
+    private int currentLane = 1;
     private Rigidbody rb;
-    private bool isGrounded = true;
+    private float baseY;
+    private float verticalOffset = 0f;
+
+    private Coroutine jumpRoutine;
+    private Coroutine rollRoutine;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         modelStartRotation = model.localRotation;
+        baseY = transform.position.y;
     }
 
     void Update()
@@ -36,58 +50,78 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Jump
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && isGrounded)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && !isJumping)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
+            if (jumpRoutine != null) StopCoroutine(jumpRoutine);
+            jumpRoutine = StartCoroutine(JumpRoutine());
         }
 
-        // Jump
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
-        }
-
-        // Roll / Duck
+        // Roll 
         if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isRolling)
         {
-            StartCoroutine(Roll());
+            if (rollRoutine != null) StopCoroutine(rollRoutine);
+            rollRoutine = StartCoroutine(RollRoutine());
         }
-
-        // Constant forward movement
-        transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime, Space.World);
-
-        // Calculate target lane position
-        Vector3 targetPosition = transform.position;
-        targetPosition.x = (currentLane - 1) * laneDistance;
-
-        // Smooth lane switching
-        transform.position = Vector3.Lerp(
-            transform.position,
-            targetPosition,
-            laneSwitchSpeed * Time.deltaTime
-        );
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void FixedUpdate()
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
+        Vector3 nextPosition = rb.position + Vector3.forward * forwardSpeed * Time.fixedDeltaTime;
+
+        float targetX = (currentLane - 1) * laneDistance;
+        nextPosition.x = Mathf.Lerp(rb.position.x, targetX, laneSwitchSpeed * Time.fixedDeltaTime);
+
+        nextPosition.y = baseY + verticalOffset;
+
+        rb.MovePosition(nextPosition);
     }
 
-    private IEnumerator Roll()
+    private IEnumerator JumpRoutine()
+    {
+        isJumping = true;
+        float elapsed = 0f;
+
+        while (elapsed < jumpDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / jumpDuration);
+            verticalOffset = jumpHeight * Mathf.Sin(t * Mathf.PI);
+            yield return null;
+        }
+
+        verticalOffset = 0f;
+        isJumping = false;
+        jumpRoutine = null;
+    }
+
+    private IEnumerator RollRoutine()
     {
         isRolling = true;
 
+        if (isJumping)
+        {
+            if (jumpRoutine != null) StopCoroutine(jumpRoutine);
+            isJumping = false;
+            jumpRoutine = null;
+
+            float startOffset = verticalOffset;
+            float elapsed = 0f;
+            while (elapsed < fastFallDuration)
+            {
+                elapsed += Time.deltaTime;
+                verticalOffset = Mathf.Lerp(startOffset, 0f, elapsed / fastFallDuration);
+                yield return null;
+            }
+            verticalOffset = 0f;
+        }
+
         model.localRotation = modelStartRotation * Quaternion.Euler(90f, 0f, 0f);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(rollDuration);
 
         model.localRotation = modelStartRotation;
 
         isRolling = false;
+        rollRoutine = null;
     }
 }
