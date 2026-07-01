@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Jump setting")]
     public float jumpHeight = 10f;
-    public float jumpDuration = 0.6f;
+    public float jumpDuration = 5f;
     public float fastFallDuration = 0.15f;
 
     [Header("Roll setting")]
@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     private int currentLane = 1;
     private Rigidbody rb;
+    private Animator anim;
     private float baseY;
     private float verticalOffset = 0f;
 
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        anim = model.GetComponent<Animator>();
         modelStartRotation = model.localRotation;
         baseY = transform.position.y;
     }
@@ -79,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator JumpRoutine()
     {
         isJumping = true;
+        anim.SetBool("isJumping", true);
         float elapsed = 0f;
 
         while (elapsed < jumpDuration)
@@ -91,17 +94,20 @@ public class PlayerMovement : MonoBehaviour
 
         verticalOffset = 0f;
         isJumping = false;
+        anim.SetBool("isJumping", false);
         jumpRoutine = null;
     }
 
     private IEnumerator RollRoutine()
     {
         isRolling = true;
+        anim.SetBool("isRolling", true);
 
         if (isJumping)
         {
             if (jumpRoutine != null) StopCoroutine(jumpRoutine);
             isJumping = false;
+            anim.SetBool("isJumping", false);
             jumpRoutine = null;
 
             float startOffset = verticalOffset;
@@ -122,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
         model.localRotation = modelStartRotation;
 
         isRolling = false;
+        anim.SetBool("isRolling", false);
         rollRoutine = null;
     }
 }
