@@ -85,8 +85,6 @@ public class PlayerMovement : MonoBehaviour
         nextPosition.y = baseY + verticalOffset;
 
         rb.MovePosition(nextPosition);
-
-        Debug.Log("Current forward speed: " + currentForwardSpeed);
     }
 
     private IEnumerator JumpRoutine()

@@ -17,20 +17,20 @@ public class RoadObjectsSpawner : MonoBehaviour
     public float minReactionGap = 10f;
 
     [Header("Spawn chances (per lane, per row)")]
-    [Range(0f, 1f)] public float jumpObstacleChance = 0.5f;
-    [Range(0f, 1f)] public float duckObstacleChance = 0.5f;
-    [Range(0f, 1f)] public float pickupRowChance = 0.3f;
+    [Range(0f, 1f)] public float jumpObstacleChance = 0.65f;
+    [Range(0f, 1f)] public float duckObstacleChance = 0.65f;
+    [Range(0f, 1f)] public float pickupRowChance = 0.4f;
     [Range(0f, 1f)] public float forcedPickupChance = 0.15f;
 
     public float laneDistance = 8f;
     public float roadLength = 30f;
 
     public float difficultyRampDistance = 1200f;
-    public float minSpawnChance = 0.45f;
+    public float minSpawnChance = 0.65f;
     public float maxSpawnChance = 1f;
 
-    public int minRowCount = 1;
-    public int maxRowCount = 3;
+    public int minRowCount = 2;
+    public int maxRowCount = 4;
 
     public void SpawnObjects(float distance)
     {

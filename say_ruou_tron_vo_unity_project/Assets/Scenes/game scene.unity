@@ -329,14 +329,16 @@ MonoBehaviour:
   rowCount: 3
   firstRowZ: 8
   minReactionGap: 10
-  jumpObstacleChance: 0.5
-  duckObstacleChance: 0.5
-  pickupRowChance: 0.3
+  jumpObstacleChance: 0.65
+  duckObstacleChance: 0.65
+  pickupRowChance: 0.4
   forcedPickupChance: 0.15
   laneDistance: 8
   roadLength: 30
   difficultyRampDistance: 1200
-  minSpawnChance: 0.45
+  minRowCount: 2
+  maxRowCount: 4
+  minSpawnChance: 0.65
   maxSpawnChance: 1
 --- !u!1 &963194225
 GameObject:
