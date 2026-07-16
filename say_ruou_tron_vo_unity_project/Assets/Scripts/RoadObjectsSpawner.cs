@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RoadObjectsSpawner : MonoBehaviour
@@ -5,7 +6,21 @@ public class RoadObjectsSpawner : MonoBehaviour
     public GameObject bananaSkinPrefab;
     public GameObject trashBinPrefab;
     public GameObject alcoholSignPrefab;
-    public GameObject streetLightPrefab;
+
+    [Header("Pickups")]
+    public GameObject[] additionalPickupPrefabs;
+
+    [Header("Rows")]
+    public float firstRowZ = 6f;
+
+    [Tooltip("Minimum z distance between consecutive obstacle/pickup slots, so the player has time to see, react to, and jump/roll past one before the next arrives.")]
+    public float minReactionGap = 10f;
+
+    [Header("Spawn chances (per lane, per row)")]
+    [Range(0f, 1f)] public float jumpObstacleChance = 0.5f;
+    [Range(0f, 1f)] public float duckObstacleChance = 0.5f;
+    [Range(0f, 1f)] public float pickupRowChance = 0.3f;
+    [Range(0f, 1f)] public float forcedPickupChance = 0.15f;
 
     public float laneDistance = 8f;
     public float roadLength = 30f;
@@ -14,43 +29,51 @@ public class RoadObjectsSpawner : MonoBehaviour
     public float minSpawnChance = 0.45f;
     public float maxSpawnChance = 1f;
 
-    public float minObjectZ = 5f;
-    public float maxObjectZ = 15f;
-
     public int minRowCount = 1;
     public int maxRowCount = 3;
-    public float rowSpacing = 20f;
 
     public void SpawnObjects(float distance)
     {
         float t = Mathf.Clamp01(distance / difficultyRampDistance);
-        float spawnChance = Mathf.Lerp(minSpawnChance, maxSpawnChance, t);
+        float difficultyChance = Mathf.Lerp(minSpawnChance, maxSpawnChance, t);
 
         int rowsAtDifficulty = Mathf.RoundToInt(Mathf.Lerp(minRowCount, maxRowCount, t));
         int rowCount = Random.Range(minRowCount, rowsAtDifficulty + 1);
 
         float[] laneX = { -laneDistance, 0f, laneDistance };
+
+        List<GameObject> pickupPool = new List<GameObject> { bananaSkinPrefab };
+        pickupPool.AddRange(additionalPickupPrefabs);
+        pickupPool.RemoveAll(p => p == null);
+
+        float rowSpan = minReactionGap * 3f; // jump -> duck -> pickup -> next row's jump, each minReactionGap apart
+
         for (int row = 0; row < rowCount; row++)
         {
-            float rowBaseZ = row * rowSpacing;
-            foreach (float x in laneX)
+            float jumpZ = firstRowZ + row * rowSpan;
+            float duckZ = jumpZ + minReactionGap;
+            float pickupZ = duckZ + minReactionGap;
+
+            if (Random.value < jumpObstacleChance * difficultyChance)
+                Spawn(trashBinPrefab, laneX[Random.Range(0, 3)], 0f, jumpZ);
+
+            if (Random.value < duckObstacleChance * difficultyChance)
+                Spawn(alcoholSignPrefab, laneX[Random.Range(0, 3)], 0f, duckZ);
+
+            if (pickupPool.Count > 0 && Random.value < pickupRowChance)
             {
-                if (Random.value < spawnChance) SpawnRandomObject(x, rowBaseZ);
+                GameObject pickupPrefab = pickupPool[Random.Range(0, pickupPool.Count)];
+                if (Random.value < forcedPickupChance)
+                {
+                    for (int lane = 0; lane < 3; lane++)
+                        Spawn(pickupPrefab, laneX[lane], 0f, pickupZ);
+                }
+                else
+                {
+                    int lane = Random.Range(0, 3);
+                    Spawn(pickupPrefab, laneX[lane], 0f, pickupZ);
+                }
             }
-        }
-
-        Spawn(streetLightPrefab, -13f, 0f, 15f);
-    }
-
-    void SpawnRandomObject(float laneX, float rowBaseZ)
-    {
-        float z = rowBaseZ + Random.Range(minObjectZ, maxObjectZ);
-
-        switch (Random.Range(0, 3))
-        {
-            case 0: Spawn(bananaSkinPrefab, laneX, 0f, z); break;
-            case 1: Spawn(trashBinPrefab, laneX, 0f, z); break;
-            case 2: Spawn(alcoholSignPrefab, laneX, 0f, z); break;
         }
     }
 

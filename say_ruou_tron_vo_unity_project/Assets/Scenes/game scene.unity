@@ -307,6 +307,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 543450651817734501}
+  - {fileID: 543450653287051632}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &708840251
@@ -324,7 +325,14 @@ MonoBehaviour:
   bananaSkinPrefab: {fileID: 919132149060332631}
   trashBinPrefab: {fileID: 7285166227186165898}
   alcoholSignPrefab: {fileID: 919132149521392160}
-  streetLightPrefab: {fileID: 919132149566712778}
+  additionalPickupPrefabs: []
+  rowCount: 3
+  firstRowZ: 8
+  minReactionGap: 10
+  jumpObstacleChance: 0.5
+  duckObstacleChance: 0.5
+  pickupRowChance: 0.3
+  forcedPickupChance: 0.15
   laneDistance: 8
   roadLength: 30
   difficultyRampDistance: 1200
@@ -648,7 +656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1854118744
 Transform:
   m_ObjectHideFlags: 0
@@ -665,7 +673,6 @@ Transform:
   - {fileID: 543450653241735322}
   - {fileID: 543450652728211181}
   - {fileID: 368837500698227137}
-  - {fileID: 543450653287051632}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &368837500698227137 stripped
@@ -734,11 +741,6 @@ GameObject:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6071179453718600833, guid: aabcce880c1ccf342aa91975de280e42, type: 3}
   m_PrefabInstance: {fileID: 8558311314956224928}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &919132149566712778 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8848762483627359336, guid: eac8106d44cb18a448e2800157720b89, type: 3}
-  m_PrefabInstance: {fileID: 9113810613381819015}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2040253063744288188
 PrefabInstance:
@@ -885,18 +887,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1671897858}
-    - target: {fileID: 1801181617209828920, guid: 7b471bd5567800749963f4195959d0a8, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1801181617209828920, guid: 7b471bd5567800749963f4195959d0a8, type: 3}
-      propertyPath: 'm_Materials.Array.data[3]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 487ea83234631e144a7d51cb53c64aa5, type: 2}
-    - target: {fileID: 1801181617209828920, guid: 7b471bd5567800749963f4195959d0a8, type: 3}
-      propertyPath: 'm_Materials.Array.data[4]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 382eaa9957a5de34ca2d8982dc3518f3, type: 2}
     - target: {fileID: 2478390137723351644, guid: 7b471bd5567800749963f4195959d0a8, type: 3}
       propertyPath: m_Name
       value: GAME-TRASH-BIN
@@ -947,7 +937,7 @@ PrefabInstance:
       objectReference: {fileID: 1671897858}
     - target: {fileID: 5028620183389681482, guid: 7b471bd5567800749963f4195959d0a8, type: 3}
       propertyPath: m_VersionIndex
-      value: 86
+      value: 95
       objectReference: {fileID: 0}
     - target: {fileID: 5028620183389681482, guid: 7b471bd5567800749963f4195959d0a8, type: 3}
       propertyPath: m_Tangents.Array.data[180].x
@@ -3023,15 +3013,15 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1854118744}
+    m_TransformParent: {fileID: 708840250}
     m_Modifications:
     - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14
+      value: -13.85
       objectReference: {fileID: 0}
     - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
       propertyPath: m_LocalPosition.z

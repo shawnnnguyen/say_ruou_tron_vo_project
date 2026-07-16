@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -68,7 +68,7 @@ MeshRenderer:
   - {fileID: 2100000, guid: 0411efd091535a04e8647a7ea62f6578, type: 2}
   - {fileID: 2100000, guid: 487ea83234631e144a7d51cb53c64aa5, type: 2}
   - {fileID: 2100000, guid: 0411efd091535a04e8647a7ea62f6578, type: 2}
-  - {fileID: 2100000, guid: 382eaa9957a5de34ca2d8982dc3518f3, type: 2}
+  - {fileID: 2100000, guid: 487ea83234631e144a7d51cb53c64aa5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -56937,7 +56937,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 74
+  m_VersionIndex: 92
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
