@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.003
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -166,7 +166,7 @@ MonoBehaviour:
   roadPrefab: {fileID: 708840249}
   player: {fileID: 432129140}
   roadLength: 60
-  roadsOnScreen: 5
+  roadsOnScreen: 8
 --- !u!1 &432129139
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,13 +215,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 543450651936222948}
-  forwardSpeed: 8
+  forwardSpeed: 15
   laneDistance: 8
-  laneSwitchSpeed: 10
-  jumpHeight: 3
-  jumpDuration: 0.6
+  laneSwitchSpeed: 15
+  maxForwardSpeed: 50
+  speedRampDistance: 1500
+  jumpHeight: 6
+  jumpDuration: 0.7
+  maxJumpDuration: 0.9
   fastFallDuration: 0.15
-  rollDuration: 1
+  rollDuration: 0.6
+  maxRollDuration: 0.8
 --- !u!54 &432129143
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -331,6 +335,9 @@ MonoBehaviour:
   forcedPickupChance: 0.15
   laneDistance: 8
   roadLength: 30
+  difficultyRampDistance: 1200
+  minSpawnChance: 0.45
+  maxSpawnChance: 1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

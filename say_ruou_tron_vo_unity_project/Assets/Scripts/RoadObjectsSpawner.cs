@@ -11,7 +11,6 @@ public class RoadObjectsSpawner : MonoBehaviour
     public GameObject[] additionalPickupPrefabs;
 
     [Header("Rows")]
-    public int rowCount = 2;
     public float firstRowZ = 6f;
 
     [Tooltip("Minimum z distance between consecutive obstacle/pickup slots, so the player has time to see, react to, and jump/roll past one before the next arrives.")]
@@ -26,13 +25,21 @@ public class RoadObjectsSpawner : MonoBehaviour
     public float laneDistance = 8f;
     public float roadLength = 30f;
 
-    void Start()
-    {
-        Debug.Log("RoadObjectsSpawner started on: " + gameObject.name);
-    }
+    public float difficultyRampDistance = 1200f;
+    public float minSpawnChance = 0.45f;
+    public float maxSpawnChance = 1f;
 
-    public void SpawnObjects()
+    public int minRowCount = 1;
+    public int maxRowCount = 3;
+
+    public void SpawnObjects(float distance)
     {
+        float t = Mathf.Clamp01(distance / difficultyRampDistance);
+        float difficultyChance = Mathf.Lerp(minSpawnChance, maxSpawnChance, t);
+
+        int rowsAtDifficulty = Mathf.RoundToInt(Mathf.Lerp(minRowCount, maxRowCount, t));
+        int rowCount = Random.Range(minRowCount, rowsAtDifficulty + 1);
+
         float[] laneX = { -laneDistance, 0f, laneDistance };
 
         List<GameObject> pickupPool = new List<GameObject> { bananaSkinPrefab };
@@ -47,10 +54,10 @@ public class RoadObjectsSpawner : MonoBehaviour
             float duckZ = jumpZ + minReactionGap;
             float pickupZ = duckZ + minReactionGap;
 
-            if (Random.value < jumpObstacleChance)
+            if (Random.value < jumpObstacleChance * difficultyChance)
                 Spawn(trashBinPrefab, laneX[Random.Range(0, 3)], 0f, jumpZ);
 
-            if (Random.value < duckObstacleChance)
+            if (Random.value < duckObstacleChance * difficultyChance)
                 Spawn(alcoholSignPrefab, laneX[Random.Range(0, 3)], 0f, duckZ);
 
             if (pickupPool.Count > 0 && Random.value < pickupRowChance)
@@ -86,8 +93,6 @@ public class RoadObjectsSpawner : MonoBehaviour
             prefab.transform.rotation,
             transform
         );
-
-        Debug.Log("Spawned: " + obj.name);
         obj.SetActive(true);
     }
 }
