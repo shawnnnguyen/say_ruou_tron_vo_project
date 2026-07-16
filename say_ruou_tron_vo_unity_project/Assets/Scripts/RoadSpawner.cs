@@ -8,6 +8,7 @@ public class RoadSpawner : MonoBehaviour
 
     public float roadLength = 30f;
     public int roadsOnScreen = 5;
+    public float spawnAheadDistance = 300f;
 
     private float nextSpawnZ = 0f;
     private Queue<GameObject> activeRoads = new Queue<GameObject>();
@@ -22,12 +23,10 @@ public class RoadSpawner : MonoBehaviour
 
     void Update()
     {
-        // Spawn new road when player approaches the end
-        if (player.position.z + roadLength * 2 > nextSpawnZ)
+        if (player.position.z + spawnAheadDistance > nextSpawnZ)
         {
             SpawnRoad();
 
-            // Remove oldest road if too many are active
             if (activeRoads.Count > roadsOnScreen)
             {
                 GameObject oldRoad = activeRoads.Dequeue();
@@ -54,7 +53,7 @@ public class RoadSpawner : MonoBehaviour
 
         if (objectSpawner != null)
         {
-            objectSpawner.SpawnObjects();
+            objectSpawner.SpawnObjects(nextSpawnZ);
         }
         else
         {

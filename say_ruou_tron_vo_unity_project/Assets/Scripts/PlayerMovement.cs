@@ -4,16 +4,17 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Transform model;
-    public float forwardSpeed = 8f;
+    public float forwardSpeed = 15f;
     public float laneDistance = 8f;
-    public float laneSwitchSpeed = 10f;
+    public float laneSwitchSpeed = 15f;
 
-    [Header("Jump setting")]
+    public float maxForwardSpeed = 40f;
+    public float speedRampDistance = 1500f;
+
     public float jumpHeight = 10f;
     public float jumpDuration = 5f;
     public float fastFallDuration = 0.15f;
 
-    [Header("Roll setting")]
     public float rollDuration = 1f;
 
     private bool isRolling = false;
@@ -66,9 +67,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private float GetSpeedT()
+    {
+        return Mathf.Clamp01(rb.position.z / speedRampDistance);
+    }
+
     void FixedUpdate()
     {
-        Vector3 nextPosition = rb.position + Vector3.forward * forwardSpeed * Time.fixedDeltaTime;
+        float speedT = GetSpeedT();
+        float currentForwardSpeed = Mathf.Lerp(forwardSpeed, maxForwardSpeed, speedT);
+
+        Vector3 nextPosition = rb.position + Vector3.forward * currentForwardSpeed * Time.fixedDeltaTime;
 
         float targetX = (currentLane - 1) * laneDistance;
         nextPosition.x = Mathf.Lerp(rb.position.x, targetX, laneSwitchSpeed * Time.fixedDeltaTime);
@@ -76,6 +85,8 @@ public class PlayerMovement : MonoBehaviour
         nextPosition.y = baseY + verticalOffset;
 
         rb.MovePosition(nextPosition);
+
+        Debug.Log("Current forward speed: " + currentForwardSpeed);
     }
 
     private IEnumerator JumpRoutine()
