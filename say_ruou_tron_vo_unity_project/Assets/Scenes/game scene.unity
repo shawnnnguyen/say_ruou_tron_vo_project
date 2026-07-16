@@ -167,6 +167,7 @@ MonoBehaviour:
   player: {fileID: 432129140}
   roadLength: 60
   roadsOnScreen: 8
+  spawnAheadDistance: 300
 --- !u!1 &432129139
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,10 +223,8 @@ MonoBehaviour:
   speedRampDistance: 1500
   jumpHeight: 6
   jumpDuration: 0.7
-  maxJumpDuration: 0.9
   fastFallDuration: 0.15
   rollDuration: 0.6
-  maxRollDuration: 0.8
 --- !u!54 &432129143
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -308,6 +307,7 @@ Transform:
   m_Children:
   - {fileID: 543450651817734501}
   - {fileID: 543450653287051632}
+  - {fileID: 1358082677}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &708840251
@@ -326,7 +326,6 @@ MonoBehaviour:
   trashBinPrefab: {fileID: 7285166227186165898}
   alcoholSignPrefab: {fileID: 919132149521392160}
   additionalPickupPrefabs: []
-  rowCount: 3
   firstRowZ: 8
   minReactionGap: 10
   jumpObstacleChance: 0.65
@@ -336,10 +335,10 @@ MonoBehaviour:
   laneDistance: 8
   roadLength: 30
   difficultyRampDistance: 1200
-  minRowCount: 2
-  maxRowCount: 4
   minSpawnChance: 0.65
   maxSpawnChance: 1
+  minRowCount: 2
+  maxRowCount: 4
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,8 +445,70 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 432129140}
-  offset: {x: 0, y: 5, z: -10}
+  offset: {x: 0, y: 5, z: -7}
   smoothSpeed: 5
+--- !u!1001 &1358082676
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 708840250}
+    m_Modifications:
+    - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.21000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0009661247
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5001894
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.50001466
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.49998528
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.49981064
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 89.957
+      objectReference: {fileID: 0}
+    - target: {fileID: 8848762483627359336, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+      propertyPath: m_Name
+      value: GAME-STRETT-LIGHT (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+--- !u!4 &1358082677 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3650304009308549672, guid: eac8106d44cb18a448e2800157720b89, type: 3}
+  m_PrefabInstance: {fileID: 1358082676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1671897858
 Mesh:
   m_ObjectHideFlags: 0
