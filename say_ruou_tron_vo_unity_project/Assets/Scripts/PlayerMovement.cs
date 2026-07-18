@@ -30,6 +30,11 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine jumpRoutine;
     private Coroutine rollRoutine;
 
+    public CameraBlurEffect cameraBlurEffect;
+    public float bananaStunDuration = 1f;
+
+    private bool isStunned = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -139,5 +144,38 @@ public class PlayerMovement : MonoBehaviour
         isRolling = false;
         anim.SetBool("isRolling", false);
         rollRoutine = null;
+    }
+
+    private IEnumerator BananaStun()
+    {
+        if (isStunned)
+            yield break;
+
+        isStunned = true;
+
+        // Kamera unscharf
+        if (cameraBlurEffect != null)
+            cameraBlurEffect.PlayBlur(bananaStunDuration);
+
+        // Spieler stoppt
+        float oldSpeed = forwardSpeed;
+        forwardSpeed = 0f;
+
+        yield return new WaitForSeconds(bananaStunDuration);
+
+        // Geschwindigkeit zurück
+        forwardSpeed = oldSpeed;
+
+        isStunned = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Banana"))
+        {
+            StartCoroutine(BananaStun());
+
+            Destroy(other.gameObject);
+        }
     }
 }
