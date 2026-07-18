@@ -53,7 +53,7 @@ public class RoadSpawner : MonoBehaviour
 
         if (objectSpawner != null)
         {
-            objectSpawner.SpawnObjects(nextSpawnZ);
+            objectSpawner.SpawnObjects(nextSpawnZ, roadLength);
         }
         else
         {

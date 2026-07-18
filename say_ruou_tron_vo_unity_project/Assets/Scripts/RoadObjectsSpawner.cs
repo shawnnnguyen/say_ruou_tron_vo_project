@@ -6,59 +6,81 @@ public class RoadObjectsSpawner : MonoBehaviour
     public GameObject bananaSkinPrefab;
     public GameObject trashBinPrefab;
     public GameObject alcoholSignPrefab;
+    public GameObject truckPrefab;
 
-    [Header("Pickups")]
-    public GameObject[] additionalPickupPrefabs;
+    public GameObject thuocLaoPrefab;
 
-    [Header("Rows")]
     public float firstRowZ = 6f;
 
-    [Tooltip("Minimum z distance between consecutive obstacle/pickup slots, so the player has time to see, react to, and jump/roll past one before the next arrives.")]
     public float minReactionGap = 10f;
 
-    [Header("Spawn chances (per lane, per row)")]
-    [Range(0f, 1f)] public float jumpObstacleChance = 0.65f;
-    [Range(0f, 1f)] public float duckObstacleChance = 0.65f;
-    [Range(0f, 1f)] public float pickupRowChance = 0.4f;
+    [Range(0f, 1f)] public float jumpObstacleChance = 0.5f;
+    [Range(0f, 1f)] public float duckObstacleChance = 0.5f;
+    [Range(0f, 1f)] public float laneBlockObstacleChance = 0.25f;
+    [Range(0f, 1f)] public float sidewaysTruckChance = 0.35f;
+    [Range(0f, 1f)] public float pickupRowChance = 0.3f;
     [Range(0f, 1f)] public float forcedPickupChance = 0.15f;
 
     public float laneDistance = 8f;
-    public float roadLength = 30f;
+    public float truckYOffset = 0f;
+
+    public Vector2 truckPivotOffset = Vector2.zero;
 
     public float difficultyRampDistance = 1200f;
-    public float minSpawnChance = 0.65f;
+    public float minSpawnChance = 0.45f;
     public float maxSpawnChance = 1f;
 
-    public int minRowCount = 2;
-    public int maxRowCount = 4;
+    public int minRowCount = 1;
+    public int maxRowCount = 3;
 
-    public void SpawnObjects(float distance)
+    public void SpawnObjects(float distance, float roadLength)
     {
         float t = Mathf.Clamp01(distance / difficultyRampDistance);
         float difficultyChance = Mathf.Lerp(minSpawnChance, maxSpawnChance, t);
 
-        int rowsAtDifficulty = Mathf.RoundToInt(Mathf.Lerp(minRowCount, maxRowCount, t));
-        int rowCount = Random.Range(minRowCount, rowsAtDifficulty + 1);
+        float rowSpan = minReactionGap * 4f;
+        float rowContentSpan = minReactionGap * 3f;
+
+        int maxRowsThatFit = Mathf.Max(1, 1 + Mathf.FloorToInt((roadLength - firstRowZ - rowContentSpan) / rowSpan));
+        int cappedMaxRowCount = Mathf.Min(maxRowCount, maxRowsThatFit);
+        int cappedMinRowCount = Mathf.Min(minRowCount, cappedMaxRowCount);
+
+        int rowsAtDifficulty = Mathf.RoundToInt(Mathf.Lerp(cappedMinRowCount, cappedMaxRowCount, t));
+        int rowCount = Random.Range(cappedMinRowCount, rowsAtDifficulty + 1);
 
         float[] laneX = { -laneDistance, 0f, laneDistance };
 
-        List<GameObject> pickupPool = new List<GameObject> { bananaSkinPrefab };
-        pickupPool.AddRange(additionalPickupPrefabs);
+        List<GameObject> pickupPool = new List<GameObject> { bananaSkinPrefab, thuocLaoPrefab };
         pickupPool.RemoveAll(p => p == null);
-
-        float rowSpan = minReactionGap * 3f; // jump -> duck -> pickup -> next row's jump, each minReactionGap apart
 
         for (int row = 0; row < rowCount; row++)
         {
             float jumpZ = firstRowZ + row * rowSpan;
             float duckZ = jumpZ + minReactionGap;
-            float pickupZ = duckZ + minReactionGap;
+            float laneBlockZ = duckZ + minReactionGap;
+            float pickupZ = laneBlockZ + minReactionGap;
 
             if (Random.value < jumpObstacleChance * difficultyChance)
                 Spawn(trashBinPrefab, laneX[Random.Range(0, 3)], 0f, jumpZ);
 
             if (Random.value < duckObstacleChance * difficultyChance)
                 Spawn(alcoholSignPrefab, laneX[Random.Range(0, 3)], 0f, duckZ);
+
+            if (Random.value < laneBlockObstacleChance * difficultyChance)
+            {
+                if (Random.value < sidewaysTruckChance)
+                {
+                    bool leftSide = Random.value < 0.5f;
+                    float perpendicularX = leftSide ? -laneDistance / 2f : laneDistance / 2f;
+                    float yRot = leftSide ? 0f : 180f;
+                    SpawnTruck(perpendicularX, truckYOffset, laneBlockZ, yRot);
+                }
+                else
+                {
+                    float yRot = Random.value < 0.5f ? 90f : 270f;
+                    SpawnTruck(laneX[Random.Range(0, 3)], truckYOffset, laneBlockZ, yRot);
+                }
+            }
 
             if (pickupPool.Count > 0 && Random.value < pickupRowChance)
             {
@@ -79,6 +101,11 @@ public class RoadObjectsSpawner : MonoBehaviour
 
     void Spawn(GameObject prefab, float x, float y, float z)
     {
+        SpawnRotated(prefab, x, y, z, 0f);
+    }
+
+    void SpawnRotated(GameObject prefab, float x, float y, float z, float extraYRotation)
+    {
         if (prefab == null)
         {
             Debug.LogError("Prefab is missing!");
@@ -86,11 +113,33 @@ public class RoadObjectsSpawner : MonoBehaviour
         }
 
         Vector3 position = transform.position + new Vector3(x, y, z);
+        Quaternion rotation = prefab.transform.rotation * Quaternion.Euler(0f, extraYRotation, 0f);
 
         GameObject obj = Instantiate(
             prefab,
             position,
-            prefab.transform.rotation,
+            rotation,
+            transform
+        );
+        obj.SetActive(true);
+    }
+
+    void SpawnTruck(float x, float y, float z, float extraYRotation)
+    {
+        if (truckPrefab == null)
+        {
+            Debug.LogError("Prefab is missing!");
+            return;
+        }
+
+        Quaternion rotation = truckPrefab.transform.rotation * Quaternion.Euler(0f, extraYRotation, 0f);
+        Vector3 pivotOffset = rotation * new Vector3(truckPivotOffset.x, 0f, truckPivotOffset.y);
+        Vector3 position = transform.position + new Vector3(x, y, z) + pivotOffset;
+
+        GameObject obj = Instantiate(
+            truckPrefab,
+            position,
+            rotation,
             transform
         );
         obj.SetActive(true);
