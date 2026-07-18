@@ -13,20 +13,20 @@ public class CameraBlurEffect : MonoBehaviour
     {
         if (postProcessVolume == null)
         {
-            Debug.LogError("Post Process Volume wurde nicht zugewiesen.");
+            Debug.LogError("Post Process Volume has not been assigned.");
             return;
         }
 
         if (postProcessVolume.profile == null)
         {
-            Debug.LogError("Das Post Process Volume besitzt kein Profile.");
+            Debug.LogError("The Post Process Volume does not have a profile assigned.");
             return;
         }
 
         if (!postProcessVolume.profile.TryGetSettings(out depthOfField))
         {
             Debug.LogError(
-                "Im Post Process Profile fehlt der Depth-of-Field-Effekt."
+                "The Post Process Profile does not contain a Depth of Field effect."
             );
             return;
         }
