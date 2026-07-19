@@ -226,7 +226,8 @@ MonoBehaviour:
   fastFallDuration: 0.15
   rollDuration: 0.6
   cameraBlurEffect: {fileID: 963194230}
-  bananaStunDuration: 1
+  bananaStunDuration: 2
+  stunnedSpeedMultiplier: 2
 --- !u!54 &432129143
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -468,6 +469,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   postProcessVolume: {fileID: 1370791906}
+  cameraTransform: {fileID: 0}
+  dizzyAngle: 6
+  dizzySpeed: 8
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
