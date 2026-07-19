@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     public float fastFallDuration = 0.15f;
 
     public float rollDuration = 1f;
-    public float doubleScoreDuration = 5f;
 
     private bool isRolling = false;
     private bool isJumping = false;
@@ -32,12 +31,14 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine rollRoutine;
 
     public CameraBlurEffect cameraBlurEffect;
+    private bool isStunned = false;
 
     [Header("Banana Stun")]
     public float bananaStunDuration = 2f;
     public float stunnedSpeedMultiplier = 2f;
 
-    private bool isStunned = false;
+    [Header("Thuoc Lao x2 Score")]
+    public float doubleScoreDuration = 5f;
 
     void Start()
     {
