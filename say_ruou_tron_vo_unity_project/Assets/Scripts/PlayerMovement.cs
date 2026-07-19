@@ -31,12 +31,14 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine rollRoutine;
 
     public CameraBlurEffect cameraBlurEffect;
+    private bool isStunned = false;
 
     [Header("Banana Stun")]
     public float bananaStunDuration = 2f;
     public float stunnedSpeedMultiplier = 2f;
 
-    private bool isStunned = false;
+    [Header("Thuoc Lao x2 Score")]
+    public float doubleScoreDuration = 5f;
 
     void Start()
     {
@@ -187,5 +189,11 @@ public class PlayerMovement : MonoBehaviour
 
             Destroy(other.gameObject);
         }
+
+    if (other.CompareTag("ThuocLao"))
+        {
+            ScoreManager.Instance.ActivateDoubleScore(doubleScoreDuration);
+            Destroy(other.gameObject);
+        }        
     }
 }
