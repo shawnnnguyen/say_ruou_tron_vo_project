@@ -30,6 +30,14 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine jumpRoutine;
     private Coroutine rollRoutine;
 
+    public CameraBlurEffect cameraBlurEffect;
+
+    [Header("Banana Stun")]
+    public float bananaStunDuration = 2f;
+    public float stunnedSpeedMultiplier = 2f;
+
+    private bool isStunned = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -75,8 +83,17 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         float speedT = GetSpeedT();
-        float currentForwardSpeed = Mathf.Lerp(forwardSpeed, maxForwardSpeed, speedT);
+        //float currentForwardSpeed = Mathf.Lerp(forwardSpeed, maxForwardSpeed, speedT);
+        float currentForwardSpeed = Mathf.Lerp(
+            forwardSpeed,
+            maxForwardSpeed,
+            speedT
+        );
 
+        if (isStunned)
+        {
+            currentForwardSpeed *= stunnedSpeedMultiplier;
+        }
         Vector3 nextPosition = rb.position + Vector3.forward * currentForwardSpeed * Time.fixedDeltaTime;
 
         float targetX = (currentLane - 1) * laneDistance;
@@ -139,5 +156,36 @@ public class PlayerMovement : MonoBehaviour
         isRolling = false;
         anim.SetBool("isRolling", false);
         rollRoutine = null;
+    }
+
+    private IEnumerator BananaStun()
+    {
+        if (isStunned)
+            yield break;
+
+        isStunned = true;
+
+        if (cameraBlurEffect != null)
+        {
+            cameraBlurEffect.PlayBlur(
+                bananaStunDuration
+            );
+        }
+
+        yield return new WaitForSeconds(
+            bananaStunDuration
+        );
+
+        isStunned = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Banana"))
+        {
+            StartCoroutine(BananaStun());
+
+            Destroy(other.gameObject);
+        }
     }
 }
