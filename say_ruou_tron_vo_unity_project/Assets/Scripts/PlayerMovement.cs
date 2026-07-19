@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float fastFallDuration = 0.15f;
 
     public float rollDuration = 1f;
+    public float doubleScoreDuration = 5f;
 
     private bool isRolling = false;
     private bool isJumping = false;
@@ -187,5 +188,11 @@ public class PlayerMovement : MonoBehaviour
 
             Destroy(other.gameObject);
         }
+
+    if (other.CompareTag("ThuocLao"))
+        {
+            ScoreManager.Instance.ActivateDoubleScore(doubleScoreDuration);
+            Destroy(other.gameObject);
+        }        
     }
 }
