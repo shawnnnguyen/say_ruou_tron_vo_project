@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 738969880054537270}
   - component: {fileID: 1801181617209828920}
   - component: {fileID: 5028620183389681482}
+  - component: {fileID: 990226412416102497}
   m_Layer: 0
   m_Name: GAME-TRASH-BIN
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -56937,8 +56938,29 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 92
+  m_VersionIndex: 98
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!65 &990226412416102497
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2478390137723351644}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.3622973, y: 2.9113977, z: 2.1876032}
+  m_Center: {x: 0.01927328, y: 1.4615601, z: -2.1911184e-15}

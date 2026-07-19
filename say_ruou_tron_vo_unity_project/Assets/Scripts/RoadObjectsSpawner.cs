@@ -10,16 +10,16 @@ public class RoadObjectsSpawner : MonoBehaviour
 
     public GameObject thuocLaoPrefab;
 
-    public float firstRowZ = 6f;
+public float firstRowZ = 6f;
 
     public float minReactionGap = 10f;
 
-    [Range(0f, 1f)] public float jumpObstacleChance = 0.5f;
-    [Range(0f, 1f)] public float duckObstacleChance = 0.5f;
-    [Range(0f, 1f)] public float laneBlockObstacleChance = 0.25f;
-    [Range(0f, 1f)] public float sidewaysTruckChance = 0.35f;
-    [Range(0f, 1f)] public float pickupRowChance = 0.3f;
-    [Range(0f, 1f)] public float forcedPickupChance = 0.15f;
+    public float jumpObstacleChance = 0.5f;
+    public float duckObstacleChance = 0.5f;
+    public float laneBlockObstacleChance = 0.25f;
+    public float sidewaysTruckChance = 0.35f;
+    public float pickupRowChance = 0.3f;
+    public float forcedPickupChance = 0.15f;
 
     public float laneDistance = 8f;
     public float truckYOffset = 0f;
