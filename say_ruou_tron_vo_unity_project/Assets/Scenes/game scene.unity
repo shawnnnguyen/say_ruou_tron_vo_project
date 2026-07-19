@@ -4000,6 +4000,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1854118744}
     m_Modifications:
+    - target: {fileID: 1043719810278469775, guid: 68f17a05f5ceb4b498c563b6e89a47e7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0409a95ee91a04b4ea6494419d1ee579, type: 2}
+    - target: {fileID: 2590507993111705547, guid: 68f17a05f5ceb4b498c563b6e89a47e7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bdb9115591d53a349844ff2a837eb43f, type: 2}
+    - target: {fileID: 2590507993111705547, guid: 68f17a05f5ceb4b498c563b6e89a47e7, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d5381de4eb3973489e6fc4c2792fb4a, type: 2}
+    - target: {fileID: 3478494587464757234, guid: 68f17a05f5ceb4b498c563b6e89a47e7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 09c14aa6a566679418da22d0c9776d28, type: 2}
     - target: {fileID: 6067954767815937284, guid: 68f17a05f5ceb4b498c563b6e89a47e7, type: 3}
       propertyPath: m_Name
       value: GAME-TRUCK
@@ -4044,6 +4060,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8630519213614058204, guid: 68f17a05f5ceb4b498c563b6e89a47e7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bdb9115591d53a349844ff2a837eb43f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
