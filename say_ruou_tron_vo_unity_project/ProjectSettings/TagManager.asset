@@ -8,6 +8,7 @@ TagManager:
   - Banana
   - ThuocLao
   - WineBottle
+  - Obstacle
   layers:
   - Default
   - TransparentFX
