@@ -214,10 +214,9 @@ public class PlayerMovement : MonoBehaviour
     {
         controlsReversed = true;
 
-        if (cameraBlurEffect != null)
-        {
-            cameraBlurEffect.PlayDizzy(wineDuration);
-        }
+        cameraBlurEffect.PlayDizzy(wineDuration);
+
+        WineEffectUI.Instance.ShowBar(wineDuration);
 
         yield return new WaitForSeconds(wineDuration);
 
