@@ -12,7 +12,10 @@ public class CameraBlurEffect : MonoBehaviour
     [SerializeField] private float dizzySpeed = 8f;
 
     private DepthOfField depthOfField;
-    private Coroutine effectRoutine;
+
+    private Coroutine blurRoutine;
+    private Coroutine dizzyRoutine;
+
     private Quaternion originalRotation;
 
     private void Awake()
@@ -49,34 +52,65 @@ public class CameraBlurEffect : MonoBehaviour
         depthOfField.enabled.Override(false);
     }
 
+    // Banana: blur and dizzy
     public void PlayBlur(float duration)
     {
-        if (depthOfField == null)
-            return;
-
-        if (effectRoutine != null)
+        if (blurRoutine != null)
         {
-            StopCoroutine(effectRoutine);
+            StopCoroutine(blurRoutine);
         }
 
-        effectRoutine = StartCoroutine(
-            BlurAndDizzyRoutine(duration)
+        blurRoutine = StartCoroutine(
+            BlurRoutine(duration)
+        );
+
+        PlayDizzy(duration);
+    }
+
+    // WineBottle: dizzy only
+    public void PlayDizzy(float duration)
+    {
+        if (cameraTransform == null)
+            return;
+
+        if (dizzyRoutine != null)
+        {
+            StopCoroutine(dizzyRoutine);
+        }
+
+        dizzyRoutine = StartCoroutine(
+            DizzyRoutine(duration)
         );
     }
 
-    private IEnumerator BlurAndDizzyRoutine(float duration)
+    private IEnumerator BlurRoutine(float duration)
     {
+        if (depthOfField == null)
+            yield break;
+
         depthOfField.enabled.Override(true);
 
+        yield return new WaitForSeconds(duration);
+
+        depthOfField.enabled.Override(false);
+        blurRoutine = null;
+    }
+
+    private IEnumerator DizzyRoutine(float duration)
+    {
         float elapsed = 0f;
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
 
+            float effectStrength =
+                Mathf.Sin(Mathf.Clamp01(elapsed / duration) * Mathf.PI);
+
             float zRotation =
                 Mathf.Sin(elapsed * dizzySpeed) *
-                dizzyAngle;
+                dizzyAngle *
+                effectStrength;
 
             cameraTransform.localRotation =
                 originalRotation *
@@ -86,13 +120,23 @@ public class CameraBlurEffect : MonoBehaviour
         }
 
         cameraTransform.localRotation = originalRotation;
-        depthOfField.enabled.Override(false);
-
-        effectRoutine = null;
+        dizzyRoutine = null;
     }
 
-    private void OnDisable()
+    public void StopEffects()
     {
+        if (blurRoutine != null)
+        {
+            StopCoroutine(blurRoutine);
+            blurRoutine = null;
+        }
+
+        if (dizzyRoutine != null)
+        {
+            StopCoroutine(dizzyRoutine);
+            dizzyRoutine = null;
+        }
+
         if (cameraTransform != null)
         {
             cameraTransform.localRotation = originalRotation;
@@ -102,5 +146,10 @@ public class CameraBlurEffect : MonoBehaviour
         {
             depthOfField.enabled.Override(false);
         }
+    }
+
+    private void OnDisable()
+    {
+        StopEffects();
     }
 }

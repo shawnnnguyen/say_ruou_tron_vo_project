@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Coroutine jumpRoutine;
     private Coroutine rollRoutine;
+    private Coroutine wineRoutine;
 
     public CameraBlurEffect cameraBlurEffect;
     private bool isStunned = false;
@@ -211,14 +212,14 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator WineDuration()
     {
-        if (isStunned)
-            yield break;
-
         controlsReversed = true;
 
-        yield return new WaitForSeconds(
-            wineDuration
-        );
+        if (cameraBlurEffect != null)
+        {
+            cameraBlurEffect.PlayDizzy(wineDuration);
+        }
+
+        yield return new WaitForSeconds(wineDuration);
 
         controlsReversed = false;
     }
@@ -239,8 +240,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.CompareTag("WineBottle"))
         {
-            StartCoroutine(WineDuration());
+            if (wineRoutine != null)
+            {
+                StopCoroutine(wineRoutine);
+            }
+
+            wineRoutine = StartCoroutine(WineDuration());
             Destroy(other.gameObject);
-        }  
+        }
     }
 }
