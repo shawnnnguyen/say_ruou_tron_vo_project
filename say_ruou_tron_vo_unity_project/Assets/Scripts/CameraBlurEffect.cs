@@ -6,11 +6,24 @@ public class CameraBlurEffect : MonoBehaviour
 {
     [SerializeField] private PostProcessVolume postProcessVolume;
 
+    [Header("Dizzy Effect")]
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private float dizzyAngle = 6f;
+    [SerializeField] private float dizzySpeed = 8f;
+
     private DepthOfField depthOfField;
-    private Coroutine blurRoutine;
+    private Coroutine effectRoutine;
+    private Quaternion originalRotation;
 
     private void Awake()
     {
+        if (cameraTransform == null)
+        {
+            cameraTransform = transform;
+        }
+
+        originalRotation = cameraTransform.localRotation;
+
         if (postProcessVolume == null)
         {
             Debug.LogError("Post Process Volume has not been assigned.");
@@ -19,7 +32,9 @@ public class CameraBlurEffect : MonoBehaviour
 
         if (postProcessVolume.profile == null)
         {
-            Debug.LogError("The Post Process Volume does not have a profile assigned.");
+            Debug.LogError(
+                "The Post Process Volume does not have a profile assigned."
+            );
             return;
         }
 
@@ -39,19 +54,53 @@ public class CameraBlurEffect : MonoBehaviour
         if (depthOfField == null)
             return;
 
-        if (blurRoutine != null)
-            StopCoroutine(blurRoutine);
+        if (effectRoutine != null)
+        {
+            StopCoroutine(effectRoutine);
+        }
 
-        blurRoutine = StartCoroutine(BlurRoutine(duration));
+        effectRoutine = StartCoroutine(
+            BlurAndDizzyRoutine(duration)
+        );
     }
 
-    private IEnumerator BlurRoutine(float duration)
+    private IEnumerator BlurAndDizzyRoutine(float duration)
     {
         depthOfField.enabled.Override(true);
 
-        yield return new WaitForSeconds(duration);
+        float elapsed = 0f;
 
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            float zRotation =
+                Mathf.Sin(elapsed * dizzySpeed) *
+                dizzyAngle;
+
+            cameraTransform.localRotation =
+                originalRotation *
+                Quaternion.Euler(0f, 0f, zRotation);
+
+            yield return null;
+        }
+
+        cameraTransform.localRotation = originalRotation;
         depthOfField.enabled.Override(false);
-        blurRoutine = null;
+
+        effectRoutine = null;
+    }
+
+    private void OnDisable()
+    {
+        if (cameraTransform != null)
+        {
+            cameraTransform.localRotation = originalRotation;
+        }
+
+        if (depthOfField != null)
+        {
+            depthOfField.enabled.Override(false);
+        }
     }
 }

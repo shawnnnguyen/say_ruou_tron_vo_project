@@ -31,7 +31,10 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine rollRoutine;
 
     public CameraBlurEffect cameraBlurEffect;
-    public float bananaStunDuration = 1f;
+
+    [Header("Banana Stun")]
+    public float bananaStunDuration = 2f;
+    public float stunnedSpeedMultiplier = 2f;
 
     private bool isStunned = false;
 
@@ -80,8 +83,17 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         float speedT = GetSpeedT();
-        float currentForwardSpeed = Mathf.Lerp(forwardSpeed, maxForwardSpeed, speedT);
+        //float currentForwardSpeed = Mathf.Lerp(forwardSpeed, maxForwardSpeed, speedT);
+        float currentForwardSpeed = Mathf.Lerp(
+            forwardSpeed,
+            maxForwardSpeed,
+            speedT
+        );
 
+        if (isStunned)
+        {
+            currentForwardSpeed *= stunnedSpeedMultiplier;
+        }
         Vector3 nextPosition = rb.position + Vector3.forward * currentForwardSpeed * Time.fixedDeltaTime;
 
         float targetX = (currentLane - 1) * laneDistance;
@@ -153,18 +165,16 @@ public class PlayerMovement : MonoBehaviour
 
         isStunned = true;
 
-        // Kamera unscharf
         if (cameraBlurEffect != null)
-            cameraBlurEffect.PlayBlur(bananaStunDuration);
+        {
+            cameraBlurEffect.PlayBlur(
+                bananaStunDuration
+            );
+        }
 
-        // Spieler stoppt
-        float oldSpeed = forwardSpeed;
-        forwardSpeed = 0f;
-
-        yield return new WaitForSeconds(bananaStunDuration);
-
-        // Geschwindigkeit zurück
-        forwardSpeed = oldSpeed;
+        yield return new WaitForSeconds(
+            bananaStunDuration
+        );
 
         isStunned = false;
     }
