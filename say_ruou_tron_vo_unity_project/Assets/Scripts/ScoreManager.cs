@@ -1,11 +1,13 @@
 using TMPro;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
 
+    [Header("Score")]
     public TMP_Text scoreText;
 
     public float scorePerSecond = 10f;
@@ -15,19 +17,33 @@ public class ScoreManager : MonoBehaviour
     private float scoreMultiplier = 1f;
     private Coroutine multiplierCoroutine;
 
+    [Header("Double Score UI")]
+    public GameObject doubleScoreBar;
+    public Image doubleScoreFill;
+
+    //private float multiplierTime;
+    //private float multiplierDuration;
+
     void Awake()
     {
         Instance = this;
     }
+    void Start()
+    {
+        ResetScore();
 
+        // Bar beim Spielstart verstecken
+        if (doubleScoreBar != null)
+            doubleScoreBar.SetActive(false);
+    }
     void Update()
     {
         if (!gameRunning)
             return;
 
         score += scorePerSecond * scoreMultiplier * Time.deltaTime;
-
         scoreText.text = Mathf.FloorToInt(score).ToString();
+        
     }
 
     public int GetScore()
@@ -42,7 +58,8 @@ public class ScoreManager : MonoBehaviour
 
     public void ResetScore()
     {
-        score = 0;
+        score = 0f;
+        scoreMultiplier = 1f;
         gameRunning = true;
     }
     /*
@@ -68,9 +85,26 @@ public class ScoreManager : MonoBehaviour
     {
         scoreMultiplier = 2f;
 
-        yield return new WaitForSeconds(duration);
+        doubleScoreBar.SetActive(true);
+        doubleScoreFill.fillAmount = 1f;
+
+        float remainingTime = duration;
+
+        while (remainingTime > 0f)
+        {
+            remainingTime -= Time.deltaTime;
+
+            doubleScoreFill.fillAmount =
+                remainingTime / duration;
+
+            yield return null;
+        }
 
         scoreMultiplier = 1f;
+
+        doubleScoreFill.fillAmount = 0f;
+        doubleScoreBar.SetActive(false);
+
         multiplierCoroutine = null;
     }
 }

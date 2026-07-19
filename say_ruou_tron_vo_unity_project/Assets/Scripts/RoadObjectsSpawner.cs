@@ -7,8 +7,8 @@ public class RoadObjectsSpawner : MonoBehaviour
     public GameObject trashBinPrefab;
     public GameObject alcoholSignPrefab;
     public GameObject truckPrefab;
-
     public GameObject thuocLaoPrefab;
+    public GameObject wineBottlePrefab;
 
     public float firstRowZ = 6f;
 
@@ -50,7 +50,7 @@ public class RoadObjectsSpawner : MonoBehaviour
 
         float[] laneX = { -laneDistance, 0f, laneDistance };
 
-        List<GameObject> pickupPool = new List<GameObject> { bananaSkinPrefab, thuocLaoPrefab };
+        List<GameObject> pickupPool = new List<GameObject> { bananaSkinPrefab, thuocLaoPrefab, wineBottlePrefab };
         pickupPool.RemoveAll(p => p == null);
 
         for (int row = 0; row < rowCount; row++)

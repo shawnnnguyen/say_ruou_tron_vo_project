@@ -16,10 +16,10 @@ public class PlayerMovement : MonoBehaviour
     public float fastFallDuration = 0.15f;
 
     public float rollDuration = 1f;
-    public float doubleScoreDuration = 5f;
 
     private bool isRolling = false;
     private bool isJumping = false;
+    private bool controlsReversed = false;
     private Quaternion modelStartRotation;
 
     private int currentLane = 1;
@@ -32,12 +32,17 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine rollRoutine;
 
     public CameraBlurEffect cameraBlurEffect;
+    private bool isStunned = false;
 
     [Header("Banana Stun")]
     public float bananaStunDuration = 2f;
     public float stunnedSpeedMultiplier = 2f;
 
-    private bool isStunned = false;
+    [Header("Thuoc Lao x2 Score")]
+    public float doubleScoreDuration = 5f;
+
+    [Header("Wine Reverse Duration")]
+    public float wineDuration = 5f;
 
     void Start()
     {
@@ -52,27 +57,51 @@ public class PlayerMovement : MonoBehaviour
         // Move left
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            currentLane = Mathf.Max(0, currentLane - 1);
+            if (controlsReversed)
+                currentLane = Mathf.Min(2, currentLane + 1); // move right
+            else
+                currentLane = Mathf.Max(0, currentLane - 1); // move left
         }
 
         // Move right
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            currentLane = Mathf.Min(2, currentLane + 1);
+            if (controlsReversed)
+                currentLane = Mathf.Max(0, currentLane - 1); // move left
+            else
+                currentLane = Mathf.Min(2, currentLane + 1); // move right
         }
 
         // Jump
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && !isJumping)
         {
-            if (jumpRoutine != null) StopCoroutine(jumpRoutine);
-            jumpRoutine = StartCoroutine(JumpRoutine());
+            if (controlsReversed)
+            {
+                if (rollRoutine != null) StopCoroutine(rollRoutine);
+                rollRoutine = StartCoroutine(RollRoutine());
+            }
+            else
+            {
+                if (jumpRoutine != null) StopCoroutine(jumpRoutine);
+                jumpRoutine = StartCoroutine(JumpRoutine());    
+            }
+
         }
 
         // Roll 
         if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isRolling)
         {
-            if (rollRoutine != null) StopCoroutine(rollRoutine);
-            rollRoutine = StartCoroutine(RollRoutine());
+            if (controlsReversed)
+            {
+                if (jumpRoutine != null) StopCoroutine(jumpRoutine);
+                jumpRoutine = StartCoroutine(JumpRoutine());  
+            }
+            else
+            {
+                if (rollRoutine != null) StopCoroutine(rollRoutine);
+                rollRoutine = StartCoroutine(RollRoutine());                
+            }
+
         }
     }
 
@@ -180,19 +209,38 @@ public class PlayerMovement : MonoBehaviour
         isStunned = false;
     }
 
+    private IEnumerator WineDuration()
+    {
+        if (isStunned)
+            yield break;
+
+        controlsReversed = true;
+
+        yield return new WaitForSeconds(
+            wineDuration
+        );
+
+        controlsReversed = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Banana"))
         {
             StartCoroutine(BananaStun());
-
             Destroy(other.gameObject);
         }
 
-    if (other.CompareTag("ThuocLao"))
+        if (other.CompareTag("ThuocLao"))
         {
             ScoreManager.Instance.ActivateDoubleScore(doubleScoreDuration);
             Destroy(other.gameObject);
-        }        
+        }      
+
+        if (other.CompareTag("WineBottle"))
+        {
+            StartCoroutine(WineDuration());
+            Destroy(other.gameObject);
+        }  
     }
 }
