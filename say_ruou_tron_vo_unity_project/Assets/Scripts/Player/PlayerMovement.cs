@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isChangingLane = false;
     private bool isBouncing = false;
     private bool invulnerable = false;
+    private bool isFrozen = false;
     private Quaternion modelStartRotation;
 
     private int currentLane = 1;
@@ -73,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (isFrozen) return;
+
         // Move left
         if (!isBouncing && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)))
         {
@@ -136,8 +139,6 @@ public class PlayerMovement : MonoBehaviour
 
     private const float LaneChangeEpsilon = 0.05f;
 
-    // Exposed for obstacle-collision classification (PlayerObstacleHandler),
-    // which needs the live hitbox/rigidbody to measure overlap and penetration direction.
     public Collider Col => col;
     public Rigidbody Rb => rb;
     public bool IsChangingLane => isChangingLane;
@@ -145,20 +146,38 @@ public class PlayerMovement : MonoBehaviour
 
     public float maxVerticalOverlap = 2.0f;
 
-    public bool IsVerticalClear(Collider other)
+    private float GetVerticalOverlap(Collider other)
     {
         Bounds playerBounds = col.bounds;
         Bounds obstacleBounds = other.bounds;
 
-        float overlap = Mathf.Min(playerBounds.max.y, obstacleBounds.max.y)
-                       - Mathf.Max(playerBounds.min.y, obstacleBounds.min.y);
+        return Mathf.Min(playerBounds.max.y, obstacleBounds.max.y)
+             - Mathf.Max(playerBounds.min.y, obstacleBounds.min.y);
+    }
 
-        return overlap <= maxVerticalOverlap;
+    public bool IsVerticalClear(Collider other)
+    {
+        return GetVerticalOverlap(other) <= maxVerticalOverlap;
+    }
+
+    // A jump/roll that clears the obstacle but still has some vertical bounds
+    // overlap (a close call) rather than fully separating from it.
+    public bool IsVerticalGraze(Collider other)
+    {
+        float overlap = GetVerticalOverlap(other);
+        return overlap > 0f && overlap <= maxVerticalOverlap;
     }
 
     public bool IsVerticalDodge(Collider other)
     {
         return (isJumping || isRolling) && IsVerticalClear(other);
+    }
+
+    public void Freeze()
+    {
+        isFrozen = true;
+        rb.linearVelocity = Vector3.zero;
+        rb.isKinematic = true;
     }
 
     public void CancelLaneChangeAndBounce(float bounceDuration, float invulnerabilityDuration)
@@ -172,9 +191,12 @@ public class PlayerMovement : MonoBehaviour
         isBouncing = true;
         invulnerable = true;
 
-        int laneBeforeRevert = currentLane;
-        currentLane = previousLane;
-        previousLane = laneBeforeRevert;
+        if (isChangingLane)
+        {
+            int laneBeforeRevert = currentLane;
+            currentLane = previousLane;
+            previousLane = laneBeforeRevert;
+        }
         isChangingLane = true;
 
         if (anim != null) anim.SetTrigger("Bounce");
@@ -200,6 +222,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isFrozen) return;
+
         float speedT = GetSpeedT();
         //float currentForwardSpeed = Mathf.Lerp(forwardSpeed, maxForwardSpeed, speedT);
         float currentForwardSpeed = Mathf.Lerp(
@@ -327,7 +351,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controlsReversed = true;
 
-        cameraBlurEffect.PlayDizzy(wineDuration);
+        cameraBlurEffect.PlayBlur(wineDuration);
 
         WineEffectUI.Instance.ShowBar(wineDuration);
 
