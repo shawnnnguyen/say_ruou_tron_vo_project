@@ -1788,7 +1788,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 553d915baa542584685727e663951a8c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
 --- !u!1001 &1358082676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2371,6 +2371,18 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 568c66bf5692b7d4f8e026b13a5b526c, type: 2}
+    - target: {fileID: 4668990543908392953, guid: 5e0fc9e2143c15b4f887ffef941c4c8c, type: 3}
+      propertyPath: floatSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4668990543908392953, guid: 5e0fc9e2143c15b4f887ffef941c4c8c, type: 3}
+      propertyPath: floatHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4668990543908392953, guid: 5e0fc9e2143c15b4f887ffef941c4c8c, type: 3}
+      propertyPath: heightOffset
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8163922803090449087, guid: 5e0fc9e2143c15b4f887ffef941c4c8c, type: 3}
       propertyPath: m_Name
       value: GAME-WINE-BOTTLE
@@ -2492,6 +2504,18 @@ PrefabInstance:
       value: ThuocLao
       objectReference: {fileID: 0}
     - target: {fileID: 5140340585098528517, guid: 63eca3efc84cd8f47ba735c2a6b813de, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140340585098528517, guid: 63eca3efc84cd8f47ba735c2a6b813de, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140340585098528517, guid: 63eca3efc84cd8f47ba735c2a6b813de, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140340585098528517, guid: 63eca3efc84cd8f47ba735c2a6b813de, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7
       objectReference: {fileID: 0}
@@ -2530,6 +2554,18 @@ PrefabInstance:
     - target: {fileID: 5140340585098528517, guid: 63eca3efc84cd8f47ba735c2a6b813de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140340585098528518, guid: 63eca3efc84cd8f47ba735c2a6b813de, type: 3}
+      propertyPath: floatSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140340585098528518, guid: 63eca3efc84cd8f47ba735c2a6b813de, type: 3}
+      propertyPath: floatHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140340585098528518, guid: 63eca3efc84cd8f47ba735c2a6b813de, type: 3}
+      propertyPath: heightOffset
+      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
