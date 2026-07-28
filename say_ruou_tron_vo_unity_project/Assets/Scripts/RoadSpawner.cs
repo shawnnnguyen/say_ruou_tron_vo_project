@@ -23,6 +23,8 @@ public class RoadSpawner : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver) return;
+
         if (player.position.z + spawnAheadDistance > nextSpawnZ)
         {
             SpawnRoad();

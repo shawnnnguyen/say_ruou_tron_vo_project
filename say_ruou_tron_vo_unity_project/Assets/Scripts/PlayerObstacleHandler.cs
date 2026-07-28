@@ -51,7 +51,16 @@ public class PlayerObstacleHandler : MonoBehaviour
         int id = other.GetInstanceID();
         if (resolvedObstacles.Contains(id)) return;
 
-        if (playerMovement.IsVerticalDodge(other)) return;
+        if (playerMovement.IsVerticalDodge(other))
+        {
+            if (playerMovement.IsVerticalGraze(other))
+            {
+                resolvedObstacles.Add(id);
+                Debug.Log("Graze - close jump/roll near-miss");
+                RegisterStrike();
+            }
+            return;
+        }
 
         HitOutcome outcome = Classify(other, out float overlapFraction, out _);
         if (outcome == HitOutcome.Clean) return;
@@ -62,6 +71,7 @@ public class PlayerObstacleHandler : MonoBehaviour
         {
             case HitOutcome.Graze:
                 Debug.Log($"Graze - near-miss strike ({overlapFraction:P0} overlap)");
+                playerMovement.CancelLaneChangeAndBounce(bounceBackDuration, postBounceInvulnerability);
                 RegisterStrike();
                 break;
 
@@ -108,7 +118,10 @@ public class PlayerObstacleHandler : MonoBehaviour
         if (playerMovement.IsChangingLane && lateral)
             return HitOutcome.SideCollision;
 
-        return overlapFraction < grazeOverlapThreshold ? HitOutcome.Graze : HitOutcome.Direct;
+        if (playerMovement.IsChangingLane)
+            return overlapFraction < grazeOverlapThreshold ? HitOutcome.Graze : HitOutcome.Direct;
+
+        return HitOutcome.Direct;
     }
 
     private void RegisterStrike()
@@ -121,7 +134,6 @@ public class PlayerObstacleHandler : MonoBehaviour
 
         if (strikeCount >= maxStrikes)
         {
-            // TODO: real game-over (max strikes reached). For now, just log like a caught hit.
             NotifyCaught();
         }
     }
@@ -136,7 +148,13 @@ public class PlayerObstacleHandler : MonoBehaviour
 
     private void NotifyCaught()
     {
-        // TODO: real game-over logic (stop run, show reason, restart). For now just log.
-        Debug.Log("player caught");
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.TriggerGameOver("GOTCHA B!TCH");
+        }
+        else
+        {
+            Debug.LogWarning("GameManager.Instance is null - no GameManager in scene?");
+        }
     }
 }

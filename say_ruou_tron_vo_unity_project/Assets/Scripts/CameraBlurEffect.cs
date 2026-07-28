@@ -52,7 +52,7 @@ public class CameraBlurEffect : MonoBehaviour
         depthOfField.enabled.Override(false);
     }
 
-    // Banana: blur and dizzy
+    // Banana / WineBottle: blur and dizzy
     public void PlayBlur(float duration)
     {
         if (blurRoutine != null)
@@ -67,7 +67,7 @@ public class CameraBlurEffect : MonoBehaviour
         PlayDizzy(duration);
     }
 
-    // WineBottle: dizzy only
+    // Dizzy wobble only, no blur (used internally by PlayBlur)
     public void PlayDizzy(float duration)
     {
         if (cameraTransform == null)
@@ -81,6 +81,32 @@ public class CameraBlurEffect : MonoBehaviour
         dizzyRoutine = StartCoroutine(
             DizzyRoutine(duration)
         );
+    }
+
+    // Game Over: blur and hold indefinitely (no dizzy wobble, no auto-revert)
+    public void PlayBlurHeld()
+    {
+        if (blurRoutine != null)
+        {
+            StopCoroutine(blurRoutine);
+            blurRoutine = null;
+        }
+
+        if (dizzyRoutine != null)
+        {
+            StopCoroutine(dizzyRoutine);
+            dizzyRoutine = null;
+        }
+
+        if (cameraTransform != null)
+        {
+            cameraTransform.localRotation = originalRotation;
+        }
+
+        if (depthOfField != null)
+        {
+            depthOfField.enabled.Override(true);
+        }
     }
 
     private IEnumerator BlurRoutine(float duration)
