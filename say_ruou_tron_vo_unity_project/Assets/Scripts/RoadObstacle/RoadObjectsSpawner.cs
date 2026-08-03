@@ -26,6 +26,10 @@ public float firstRowZ = 6f;
 
     public Vector2 truckPivotOffset = Vector2.zero;
 
+    public float truckRunInSideDistance = 20f;
+    public float truckRunInTriggerDistance = 30f;
+    public float truckRunInDuration = 0.35f;
+
     public float difficultyRampDistance = 1200f;
     public float minSpawnChance = 0.45f;
     public float maxSpawnChance = 1f;
@@ -73,7 +77,8 @@ public float firstRowZ = 6f;
                     bool leftSide = Random.value < 0.5f;
                     float perpendicularX = leftSide ? -laneDistance / 2f : laneDistance / 2f;
                     float yRot = leftSide ? 0f : 180f;
-                    SpawnTruck(perpendicularX, truckYOffset, laneBlockZ, yRot);
+                    float sideOffset = leftSide ? -truckRunInSideDistance : truckRunInSideDistance;
+                    SpawnTruck(perpendicularX, truckYOffset, laneBlockZ, yRot, sideOffset);
                 }
                 else
                 {
@@ -124,7 +129,7 @@ public float firstRowZ = 6f;
         obj.SetActive(true);
     }
 
-    void SpawnTruck(float x, float y, float z, float extraYRotation)
+    void SpawnTruck(float x, float y, float z, float extraYRotation, float runInSideOffset = 0f)
     {
         if (truckPrefab == null)
         {
@@ -143,5 +148,11 @@ public float firstRowZ = 6f;
             transform
         );
         obj.SetActive(true);
+
+        if (runInSideOffset != 0f)
+        {
+            obj.AddComponent<TruckSidewaysRunner>()
+               .Init(runInSideOffset, truckRunInTriggerDistance, truckRunInDuration);
+        }
     }
 }
