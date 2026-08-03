@@ -15,6 +15,10 @@ public class SandalLogic : MonoBehaviour
     private float elapsedTime;
     private bool isFlying;
     private bool hasLanded;
+    private Rigidbody body;
+    private BoxCollider sandalCollider;
+    private Vector3 previousPosition;
+    private Vector3 currentFlightVelocity;
 
     public void Launch(
         Transform playerTransform,
@@ -34,6 +38,7 @@ public class SandalLogic : MonoBehaviour
         groundY = player.position.y;
         distanceBehindAtLaunch = Mathf.Max(0f, player.position.z - startPosition.z);
         overtakeDistance = Mathf.Max(0f, distanceAheadAtEnd);
+        previousPosition = startPosition;
 
         float apexZ = cameraTransform != null
             ? cameraTransform.position.z + apexDistanceInFrontOfCamera
@@ -46,9 +51,10 @@ public class SandalLogic : MonoBehaviour
 
         CreateTriggerFromVisualBounds();
 
-        Rigidbody body = gameObject.AddComponent<Rigidbody>();
+        body = gameObject.AddComponent<Rigidbody>();
         body.isKinematic = true;
         body.useGravity = false;
+        body.interpolation = RigidbodyInterpolation.Interpolate;
         body.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
     }
 
@@ -86,32 +92,111 @@ public class SandalLogic : MonoBehaviour
         }
 
         float y = Mathf.Lerp(startPosition.y, groundY, approachT) + arcHeight * heightFactor;
-        transform.position = new Vector3(startPosition.x, y, z);
+        Vector3 nextPosition = new Vector3(startPosition.x, y, z);
+        currentFlightVelocity = (nextPosition - previousPosition) / Time.fixedDeltaTime;
+
+        if (HandleSweptCollision(previousPosition, nextPosition))
+            return;
+
+        transform.position = nextPosition;
+        previousPosition = nextPosition;
 
         if (approachT >= 1f)
         {
-            hasLanded = true;
-            Destroy(gameObject, Mathf.Max(0.25f, flightDuration - reactionTime));
+            DropWithPhysics();
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!isFlying) return;
+        if (other.transform.IsChildOf(transform)) return;
+        if (other.CompareTag("Ground") || other.transform.root.CompareTag("Ground")) return;
 
         PlayerMovement hitPlayer = other.GetComponentInParent<PlayerMovement>();
-        if (hitPlayer == null) return;
+        if (hitPlayer != null)
+        {
+            isFlying = false;
+            if (GameManager.Instance != null)
+                GameManager.Instance.TriggerGameOver("GOTCHA B!TCH");
+            return;
+        }
+
+        DropWithPhysics();
+    }
+
+    private bool HandleSweptCollision(Vector3 from, Vector3 to)
+    {
+        Vector3 movement = to - from;
+        float distance = movement.magnitude;
+        if (distance <= 0.0001f) return false;
+
+        Vector3 direction = movement / distance;
+        Bounds bounds = sandalCollider.bounds;
+        RaycastHit[] hits = Physics.BoxCastAll(
+            bounds.center,
+            bounds.extents * 0.9f,
+            direction,
+            transform.rotation,
+            distance,
+            Physics.AllLayers,
+            QueryTriggerInteraction.Collide);
+
+        System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+        foreach (RaycastHit hit in hits)
+        {
+            Collider hitCollider = hit.collider;
+            if (hitCollider == null || hitCollider == sandalCollider) continue;
+            if (hitCollider.transform.IsChildOf(transform)) continue;
+            if (hitCollider.CompareTag("Ground") || hitCollider.transform.root.CompareTag("Ground")) continue;
+
+            PlayerMovement hitPlayer = hitCollider.GetComponentInParent<PlayerMovement>();
+            if (hitPlayer != null)
+            {
+                isFlying = false;
+                if (GameManager.Instance != null)
+                    GameManager.Instance.TriggerGameOver("GOTCHA B!TCH");
+                return true;
+            }
+
+            float safeDistance = Mathf.Max(0f, hit.distance - 0.05f);
+            transform.position = from + direction * safeDistance;
+
+            Vector3 collisionNormal = hit.normal.sqrMagnitude > 0.01f
+                ? hit.normal.normalized
+                : -direction;
+            Vector3 bounceVelocity = Vector3.Reflect(currentFlightVelocity, collisionNormal) * 0.65f;
+            bounceVelocity += Vector3.up * 2f;
+            DropWithPhysics(bounceVelocity);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void DropWithPhysics(Vector3? initialVelocity = null)
+    {
+        if (!isFlying) return;
 
         isFlying = false;
-        if (GameManager.Instance != null)
-            GameManager.Instance.TriggerGameOver("GOTCHA B!TCH");
+        hasLanded = true;
+
+        sandalCollider.isTrigger = false;
+        body.isKinematic = false;
+        body.useGravity = true;
+        body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        body.linearVelocity = initialVelocity ?? currentFlightVelocity;
+        body.angularVelocity = new Vector3(5f, 3f, 8f);
+
+        Destroy(gameObject, 5f);
     }
 
     private void CreateTriggerFromVisualBounds()
     {
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
-        BoxCollider trigger = gameObject.AddComponent<BoxCollider>();
-        trigger.isTrigger = true;
+        sandalCollider = gameObject.AddComponent<BoxCollider>();
+        sandalCollider.isTrigger = true;
 
         if (renderers.Length == 0) return;
 
@@ -119,9 +204,9 @@ public class SandalLogic : MonoBehaviour
         for (int i = 1; i < renderers.Length; i++)
             bounds.Encapsulate(renderers[i].bounds);
 
-        trigger.center = transform.InverseTransformPoint(bounds.center);
+        sandalCollider.center = transform.InverseTransformPoint(bounds.center);
         Vector3 scale = transform.lossyScale;
-        trigger.size = new Vector3(
+        sandalCollider.size = new Vector3(
             bounds.size.x / Mathf.Max(Mathf.Abs(scale.x), 0.0001f),
             bounds.size.y / Mathf.Max(Mathf.Abs(scale.y), 0.0001f),
             bounds.size.z / Mathf.Max(Mathf.Abs(scale.z), 0.0001f));
