@@ -451,6 +451,7 @@ GameObject:
   - component: {fileID: 432129144}
   - component: {fileID: 432129142}
   - component: {fileID: 432129145}
+  - component: {fileID: 432129146}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -571,6 +572,33 @@ MonoBehaviour:
   postBounceInvulnerability: 0.5
   maxStrikes: 2
   collidedDuration: 4
+--- !u!114 &432129146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432129139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee805b6950b7410f90f7327b77693d35, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  sandalPrefab: {fileID: 7026467895032906915, guid: 5fa3ed3b7f7082a409b788566304f571, type: 3}
+  minSpawnDelay: 5
+  maxSpawnDelay: 10
+  warningDuration: 1.5
+  warningForwardOffset: 6
+  laneDistance: 8
+  spawnDistanceInFrontOfCamera: 3
+  spawnHeight: 0.25
+  reactionTime: 5
+  flightDuration: 5.25
+  arcHeight: 3
+  apexDistanceInFrontOfCamera: 1
+  overtakeDistance: 125
+  sandalScale: {x: 10, y: 10, z: 10}
+  sandalRotation: {x: 0, y: 0, z: 90}
 --- !u!1 &490881965
 GameObject:
   m_ObjectHideFlags: 0
