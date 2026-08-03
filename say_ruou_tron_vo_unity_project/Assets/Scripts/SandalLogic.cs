@@ -94,6 +94,10 @@ public class SandalLogic : MonoBehaviour
         float y = Mathf.Lerp(startPosition.y, groundY, approachT) + arcHeight * heightFactor;
         Vector3 nextPosition = new Vector3(startPosition.x, y, z);
         currentFlightVelocity = (nextPosition - previousPosition) / Time.fixedDeltaTime;
+
+        if (HandleSweptCollision(previousPosition, nextPosition))
+            return;
+
         transform.position = nextPosition;
         previousPosition = nextPosition;
 
@@ -121,7 +125,57 @@ public class SandalLogic : MonoBehaviour
         DropWithPhysics();
     }
 
-    private void DropWithPhysics()
+    private bool HandleSweptCollision(Vector3 from, Vector3 to)
+    {
+        Vector3 movement = to - from;
+        float distance = movement.magnitude;
+        if (distance <= 0.0001f) return false;
+
+        Vector3 direction = movement / distance;
+        Bounds bounds = sandalCollider.bounds;
+        RaycastHit[] hits = Physics.BoxCastAll(
+            bounds.center,
+            bounds.extents * 0.9f,
+            direction,
+            transform.rotation,
+            distance,
+            Physics.AllLayers,
+            QueryTriggerInteraction.Collide);
+
+        System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+        foreach (RaycastHit hit in hits)
+        {
+            Collider hitCollider = hit.collider;
+            if (hitCollider == null || hitCollider == sandalCollider) continue;
+            if (hitCollider.transform.IsChildOf(transform)) continue;
+            if (hitCollider.CompareTag("Ground") || hitCollider.transform.root.CompareTag("Ground")) continue;
+
+            PlayerMovement hitPlayer = hitCollider.GetComponentInParent<PlayerMovement>();
+            if (hitPlayer != null)
+            {
+                isFlying = false;
+                if (GameManager.Instance != null)
+                    GameManager.Instance.TriggerGameOver("GOTCHA B!TCH");
+                return true;
+            }
+
+            float safeDistance = Mathf.Max(0f, hit.distance - 0.05f);
+            transform.position = from + direction * safeDistance;
+
+            Vector3 collisionNormal = hit.normal.sqrMagnitude > 0.01f
+                ? hit.normal.normalized
+                : -direction;
+            Vector3 bounceVelocity = Vector3.Reflect(currentFlightVelocity, collisionNormal) * 0.65f;
+            bounceVelocity += Vector3.up * 2f;
+            DropWithPhysics(bounceVelocity);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void DropWithPhysics(Vector3? initialVelocity = null)
     {
         if (!isFlying) return;
 
@@ -132,7 +186,7 @@ public class SandalLogic : MonoBehaviour
         body.isKinematic = false;
         body.useGravity = true;
         body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-        body.linearVelocity = currentFlightVelocity;
+        body.linearVelocity = initialVelocity ?? currentFlightVelocity;
         body.angularVelocity = new Vector3(5f, 3f, 8f);
 
         Destroy(gameObject, 5f);
