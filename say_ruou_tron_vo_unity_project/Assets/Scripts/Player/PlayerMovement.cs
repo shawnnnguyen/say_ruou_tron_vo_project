@@ -273,7 +273,14 @@ public class PlayerMovement : MonoBehaviour
         if (anim != null)
         {
             anim.SetBool(IsJumpingHash, true);
-            anim.CrossFadeInFixedTime(JumpStateHash, 0.05f, 0, 0f);
+            // Start the actual jump clip immediately at its first frame. A
+            // transition blend here can otherwise look like a frozen run pose.
+            anim.Play(JumpStateHash, 0, 0f);
+            anim.Update(0f);
+
+            AnimatorClipInfo[] jumpClips = anim.GetCurrentAnimatorClipInfo(0);
+            if (jumpClips.Length > 0 && jumpDuration > 0f)
+                anim.speed = jumpClips[0].clip.length / jumpDuration;
         }
         float elapsed = 0f;
 
@@ -296,6 +303,7 @@ public class PlayerMovement : MonoBehaviour
         if (anim == null) return;
 
         anim.SetBool(IsJumpingHash, false);
+        anim.speed = 1f;
         anim.CrossFadeInFixedTime(RunStateHash, 0.1f, 0, 0f);
     }
 
