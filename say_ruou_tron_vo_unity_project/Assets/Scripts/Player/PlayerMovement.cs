@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private static readonly int IsJumpingHash = Animator.StringToHash("isJumping");
+    private static readonly int JumpStateHash = Animator.StringToHash("Base Layer.jump");
+    private static readonly int RunStateHash = Animator.StringToHash("Base Layer.runescape2");
+
     public static PlayerMovement Instance;
 
     public Transform model;
@@ -266,7 +270,11 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator JumpRoutine()
     {
         isJumping = true;
-        anim.SetBool("isJumping", true);
+        if (anim != null)
+        {
+            anim.SetBool(IsJumpingHash, true);
+            anim.CrossFadeInFixedTime(JumpStateHash, 0.05f, 0, 0f);
+        }
         float elapsed = 0f;
 
         while (elapsed < jumpDuration)
@@ -279,8 +287,16 @@ public class PlayerMovement : MonoBehaviour
 
         verticalOffset = 0f;
         isJumping = false;
-        anim.SetBool("isJumping", false);
+        PlayRunAnimationAfterJump();
         jumpRoutine = null;
+    }
+
+    private void PlayRunAnimationAfterJump()
+    {
+        if (anim == null) return;
+
+        anim.SetBool(IsJumpingHash, false);
+        anim.CrossFadeInFixedTime(RunStateHash, 0.1f, 0, 0f);
     }
 
     private IEnumerator RollRoutine()
@@ -304,7 +320,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (jumpRoutine != null) StopCoroutine(jumpRoutine);
             isJumping = false;
-            anim.SetBool("isJumping", false);
+            PlayRunAnimationAfterJump();
             jumpRoutine = null;
 
             float startOffset = verticalOffset;
