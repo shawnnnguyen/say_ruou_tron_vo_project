@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement Instance;
+
     public Transform model;
     public float forwardSpeed = 15f;
     public float laneDistance = 8f;
@@ -55,6 +57,11 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Wine Reverse Duration")]
     public float wineDuration = 5f;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
