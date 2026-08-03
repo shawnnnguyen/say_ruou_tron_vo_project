@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxForwardSpeed = 40f;
     public float speedRampDistance = 1500f;
 
-    public float jumpHeight = 10f;
+    public float jumpHeight = 5f;
     public float jumpDuration = 5f;
     public float fastFallDuration = 0.15f;
 
