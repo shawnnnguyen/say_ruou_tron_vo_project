@@ -944,9 +944,9 @@ MonoBehaviour:
   wineBottlePrefab: {fileID: 2316068824807881115}
   firstRowZ: 8
   minReactionGap: 10
-  jumpObstacleChance: 0.65
-  duckObstacleChance: 0.65
-  laneBlockObstacleChance: 0.5
+  jumpObstacleChance: 0.85
+  duckObstacleChance: 0.85
+  laneBlockObstacleChance: 0.7
   sidewaysTruckChance: 0.35
   pickupRowChance: 0.4
   forcedPickupChance: 0.15
@@ -954,7 +954,7 @@ MonoBehaviour:
   truckYOffset: 1.05
   truckPivotOffset: {x: 3, y: 0}
   difficultyRampDistance: 1200
-  minSpawnChance: 0.65
+  minSpawnChance: 0.85
   maxSpawnChance: 1
   minRowCount: 2
   maxRowCount: 4
