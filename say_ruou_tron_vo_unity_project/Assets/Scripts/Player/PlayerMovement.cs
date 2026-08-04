@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpDuration = 5f;
     public float fastFallDuration = 0.15f;
 
+    [SerializeField] private float jumpingColliderYOffset = 1f;
+
     public float rollDuration = 1f;
     public float duckSize = 0.5f;
 
@@ -187,7 +189,10 @@ public class PlayerMovement : MonoBehaviour
     public void Freeze()
     {
         isFrozen = true;
-        rb.linearVelocity = Vector3.zero;
+
+        if (!rb.isKinematic)
+            rb.linearVelocity = Vector3.zero;
+
         rb.isKinematic = true;
     }
 
@@ -270,6 +275,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator JumpRoutine()
     {
         isJumping = true;
+        SetJumpCollider(true);
         if (anim != null)
         {
             anim.SetBool(IsJumpingHash, true);
@@ -293,9 +299,27 @@ public class PlayerMovement : MonoBehaviour
         }
 
         verticalOffset = 0f;
+        SetJumpCollider(false);
         isJumping = false;
         PlayRunAnimationAfterJump();
         jumpRoutine = null;
+    }
+
+    private void SetJumpCollider(bool jumping)
+    {
+        if (capsule == null) return;
+
+        if (!jumping)
+        {
+            capsule.height = normalHeight;
+            capsule.center = normalCenter;
+            return;
+        }
+
+        Vector3 newCenter = normalCenter;
+        newCenter.y += jumpingColliderYOffset;
+
+        capsule.center = newCenter;
     }
 
     private void PlayRunAnimationAfterJump()
