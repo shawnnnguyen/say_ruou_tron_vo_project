@@ -62,6 +62,12 @@ public class RoadSpawner : MonoBehaviour
             Debug.LogError("RoadObjectsSpawner missing on spawned road!");
         }
 
+        HouseSpawner houseSpawner = road.GetComponent<HouseSpawner>();
+        if (houseSpawner != null)
+        {
+            houseSpawner.SpawnHouses(roadLength);
+        }
+
         activeRoads.Enqueue(road);
         nextSpawnZ += roadLength;
     }
